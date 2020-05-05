@@ -323,4 +323,5 @@ def clearAllCharacters():
     f = open("Character.txt", "w").close()
     f = open("stuff.txt", "w").close()
     f = open("ability.txt", "w").close()
+
 _MakeACharacter()
