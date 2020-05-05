@@ -65,7 +65,7 @@ def updateAlignment():
     print("Okay, your alignment is: " + align)
 
 def updateBackground():
-    bg = input("What is your background")
+    bg = input("What is your background? ")
     _Character["background"] = bg
     print("Your background is: " + bg)
 
