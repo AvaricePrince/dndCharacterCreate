@@ -1,1 +1,0 @@
-{'Strength': (10, 'Modifier: 0'), 'Dexterity': (4, 'Modifer: -3'), 'Constitution': (1, 'Modifier: -5'), 'Intelligence': (3, 'Modifier: -4'), 'Wisdom': (9, 'Modifier: -1'), 'Charisma': (4, 'Modifer: -3')}

@@ -1,1 +1,0 @@
-{'pname': 'Notbeto', 'fname': 'Not', 'lname': 'Beto', 'level': '4', 'race': 'Blackchinese', 'class': 'Richandpoor', 'alignment': '7', 'background': 'Blackbelt in love'}
