@@ -38,13 +38,16 @@ def _MakeACharacter():
             continue
 
 def lookUpCharacter():
-    num = input("Which character do you want to see? ")
-    if str.isdigit(num):
-        print(line.getline("Character.txt", int(num)))
-        print(line.getline("stuff.txt", int(num)))
-        print(line.getline("ability.txt", int(num)))
-    else:
-        print("Please enter a row number")
+    while True:
+        num = input("Which character do you want to see? ")
+        if str.isdigit(num):
+            print(line.getline("Character.txt", int(num)))
+            print(line.getline("stuff.txt", int(num)))
+            print(line.getline("ability.txt", int(num)))
+            break
+        else:
+            print("Please enter a row number")
+            continue
 
 def updatePName():
     name = input("What is your irl name? ").capitalize()
