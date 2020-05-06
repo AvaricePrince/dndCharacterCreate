@@ -138,7 +138,7 @@ def updateRace():
     **Locathah Rising**\n
     40: Locathah\n
     **One Grung Above**\n
-    41: Grung
+    41: Grung\n
     """)
 
 def updateClass():
