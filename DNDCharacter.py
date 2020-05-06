@@ -77,7 +77,7 @@ def updateRace():
 def updateClass():
     _class = input("What is your class? ").capitalize()
     _Character["class"] = _class
-    print("Your class is " + _class)
+    print("Your class is " + _class + "\n")
 
 def updateLevel():
     while True:
@@ -99,9 +99,65 @@ def updateLevel():
 
 #allows user to input their characters alignment
 def updateAlignment():
-    align = input("What is your alignment? ").capitalize()
-    _Character["alignment"] = align
-    print("Okay, your alignment is: " + align)
+    # align = input("What is your alignment? ").capitalize()
+    # _Character["alignment"] = align
+    # print("Okay, your alignment is: " + align)
+    while True:
+        print("---Select your alignment--- \n")
+        print("1: Lawful Good \n")
+        print("2: Neutral Good \n")
+        print("3: Chaotic Good \n")
+        print("4: Lawful Neutral \n")
+        print("5: True Neutral \n")
+        print("6: Chaotic Neutral \n")
+        print("7: Lawful Evil \n")
+        print("8: Neutral Evil \n")
+        print("9: Chaotic Evil \n")
+        print("0: Unaligned \n")
+        align = int(input("Choose your alignment: "))
+        if align == 1:
+            _Character["alignment"] = "Lawful good"
+            print("Okay, you're Lawful good \n")
+            break
+        elif align == 2:
+            _Character["alignment"] = "Neutral Good"
+            print("Okay, you're Neutral good \n")
+            break
+        elif align == 3:
+            _Character["alignment"] = "Chaotic Good"
+            print("Okay, you're Chaotic good \n")
+            break
+        elif align == 4:
+            _Character["alignment"] = "Lawful Neutral"
+            print("Okay, you're Lawful Neutral \n")
+            break
+        elif align == 5:
+            _Character["alignment"] = "True Neutral"
+            print("Okay, you're True Neutral \n")
+            break
+        elif align == 6:
+            _Character["alignment"] = "Chaotic Neutral"
+            print("Okay, you're Chaotic Neutral \n")
+            break
+        elif align == 7:
+            _Character["alignment"] = "Lawful Evil"
+            print("Okay, you're Lawful Evil \n")
+            break
+        elif align == 8:
+            _Character["alignment"] = "Neutral Evil"
+            print("Okay, you're Neutral Evil \n")
+            break
+        elif align == 9:
+            _Character["alignment"] = "Chaotic Evil"
+            print("Okay, you're Chaotic Evil \n")
+            break
+        elif align == 0:
+            _Character["alignment"] = "Unaligned"
+            print("Okay, you're Unaligned \n")
+            break
+        else:
+            print("Invalid choice, try again")
+            continue
 
 #allows user to input their characters background
 def updateBackground():
