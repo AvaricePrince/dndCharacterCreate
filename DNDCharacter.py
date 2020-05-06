@@ -33,6 +33,9 @@ def _MakeACharacter():
                 elif dele.capitalize() == "N":
                     print("Have a good day Adventurer! ")
                     break
+            else:
+                print("Invalid entry")
+                continue
         else:
             print("Try again")
             continue
@@ -41,14 +44,15 @@ def lookUpCharacter():
     while True:
         num = input("Which character do you want to see? ")
         if str.isdigit(num):
-            if line.getline("Character.txt", int(num)) != '\n':
+            if line.getline("Character.txt", int(num)).strip():
                 print(line.getline("Character.txt", int(num)))
                 print(line.getline("stuff.txt", int(num)))
                 print(line.getline("ability.txt", int(num)))
                 break
             else:
-                print("Character does not exit, please try again ")
-                continue
+                print("Character does not exit! ")
+                break
+
         else:
             print("Please enter a row number")
             continue
@@ -333,5 +337,7 @@ def clearAllCharacters():
     f = open("Character.txt", "w").close()
     f = open("stuff.txt", "w").close()
     f = open("ability.txt", "w").close()
+
+
 
 _MakeACharacter()
