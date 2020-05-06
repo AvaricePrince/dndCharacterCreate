@@ -1,5 +1,7 @@
 import linecache as line
 
+
+
 _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":""}
 Items = {}
 abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "**PROFICIENCY BONUS**":""}
@@ -44,6 +46,7 @@ def lookUpCharacter():
     while True:
         num = input("Which character do you want to see? ")
         if str.isdigit(num):
+            #checks to see if the line the user typed in is populated, .strip() finds the empty space
             if line.getline("Character.txt", int(num)).strip():
                 print(line.getline("Character.txt", int(num)))
                 print(line.getline("stuff.txt", int(num)))
@@ -70,9 +73,73 @@ def updateCName():
     print("Your name is: " + fname, lname)
 
 def updateRace():
-    race = input("What is your race? ").capitalize()
-    _Character["race"] = race
-    print("You are a " + race)
+    # race = input("What is your race? ").capitalize()
+    # _Character["race"] = race
+    # print("You are a " + race)
+    print("""
+    --Select a Race--\n
+    1: Dragonborn\n
+    2: Dwarf\n
+    3: Elf\n
+    4: Gnome\n
+    5: Half-Elf\n
+    6: Halfling\n
+    7: Half-Orc\n
+    8: Human\n
+    9: Tiefling\n
+    """)
+    print("*Explorer's Guide to Wildemount*\n")
+    print("""
+    0: Orc of Exandria\n""")
+    print("*Elemental Evil Player's Companion*\n")
+    print("""
+    11: Aarakocra\n
+    12: Genasi\n
+    13: Goliath\n
+    """)
+    print("*Volo's Guide to Monsters*")
+    print("""
+    14: Aasimar\n
+    15: Bugbear\n
+    16: Firblog\n
+    17: Goblin\n
+    18: Hobgoblin\n
+    19: Kenku\n
+    20: Kobold\n
+    21: Lizardfolk\n
+    22: Orc\n
+    23: Tabaxi\n
+    24: Triton\n
+    25: Yuan-ti Pureblood\n
+    """)
+    print("*Sword Coast Adventurer's Guide*\n")
+    print("""
+    26: Feral Tiefling\n
+    """)
+    print("""
+    **The Tortle Package**\n
+    27: Tortle\n
+    *Eberron: Rising from the Last War*\n
+    28: Changeling\n
+    29: Kalashtar\n
+    30: Orc of Eberron\n
+    31: Shifter\n
+    32: Warforged\n
+    **Mordenkainen's Tome of Foes**\n
+    33: Gith\n
+    **Guildmasters' Guide to Ravnica**\n
+    34: Centaur\n
+    35: Loxodon\n
+    36: Minotaur\n
+    37: Simic Hybrid\n
+    38: Vedalken\n
+    **Acquisitions Incorporated**\n
+    39: Verdan\n
+    **Locathah Rising**\n
+    40: Locathah\n
+    **One Grung Above**\n
+    41: Grung
+    """)
 
 def updateClass():
     _class = input("What is your class? ").capitalize()
