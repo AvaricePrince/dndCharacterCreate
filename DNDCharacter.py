@@ -2,7 +2,7 @@ import linecache as line
 
 _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":""}
 Items = {}
-abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":""}
+abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "**PROFICIENCY BONUS**":""}
 
 
 def _MakeACharacter():
@@ -83,6 +83,13 @@ def updateLevel():
     while True:
         try:
             level = int(input("What level are you? Level: "))
+            if level > 20:
+                print("Your level is too high!")
+                continue
+            elif level < 1:
+                print("You cant be a negative level!")
+                continue
+            proBo(level)
         except ValueError:
             print("Invalid number")
             continue
@@ -90,16 +97,19 @@ def updateLevel():
         print("You're level " + str(level))
         break
 
+#allows user to input their characters alignment
 def updateAlignment():
     align = input("What is your alignment? ").capitalize()
     _Character["alignment"] = align
     print("Okay, your alignment is: " + align)
 
+#allows user to input their characters background
 def updateBackground():
     bg = input("What is your background? ").capitalize()
     _Character["background"] = bg
     print("Your background is: " + bg)
 
+#allows user to input their ability scores
 def updateAbilityScore():
     # mod = 0
     while True:
@@ -294,16 +304,19 @@ def updateAbilityScore():
             return st,dex,con,intel,wis,cha
             break
     saveAbilityScore()
-      
+
+#saves the character the user created when invoked      
 def saveCharacter():
     f = open("Character.txt", "a")
     f.write( str(_Character) + "\n" )
     f.close()
 
+#reads the Character.txt file 
 def readSavedCharacter():
     f = open("Character.txt", "r")
     print(f.read())
 
+#adds items to the Items dictionary
 def addStuff():
     stuff = input("Do you have any items? Y/N ")
     if stuff.capitalize() == "Y":
@@ -323,21 +336,35 @@ def addStuff():
         print("invalid")
         addStuff()
 
+#saves items to the Items dictionary
 def saveStuff():
       f = open("stuff.txt", "a")
       f.write( str(Items) + "\n")
       f.close()
 
+#self explanitory
 def saveAbilityScore():
     f = open("ability.txt","a")
     f.write( str(abilityScore) + "\n")
     f.close()
 
+#deletes all information on every text file when invoked!!
 def clearAllCharacters():
     f = open("Character.txt", "w").close()
     f = open("stuff.txt", "w").close()
     f = open("ability.txt", "w").close()
 
-
+#calculates the proficiency bonus based on inputed level
+def proBo(level = None):
+    for i in range(1,4):
+        abilityScore["**PROFICIENCY BONUS**"] = ("+2")
+    for i in range(5,9):
+        abilityScore["**PROFICIENCY BONUS**"] = ("+3")
+    for i in range(9,13):
+        abilityScore["**PROFICIENCY BONUS**"] = ("+4")
+    for i in range(13,17):
+        abilityScore["**PROFICIENCY BONUS**"] = ("+5")
+    for i in range(17,21):
+        abilityScore["**PROFICIENCY BONUS**"] = ("+6")
 
 _MakeACharacter()
