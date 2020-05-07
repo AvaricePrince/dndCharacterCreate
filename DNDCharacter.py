@@ -5,7 +5,7 @@ import linecache as line
 _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":""}
 Items = {}
 abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "**PROFICIENCY BONUS**":""}
-
+savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
 
 def _MakeACharacter():
     _Logo()
@@ -316,9 +316,70 @@ def updateRace():
             continue
 
 def updateClass():
-    _class = input("What is your class? ").capitalize()
-    _Character["class"] = _class
-    print("Your class is " + _class + "\n")
+    # _class = input("What is your class? ").capitalize()
+    # _Character["class"] = _class
+    # print("Your class is " + _class + "\n")
+    print("""---SELECT A CLASS---
+    1: Barbarian\n
+    2: Bard\n
+    3: Cleric\n
+    4: Druid\n
+    5: Fighter\n
+    6: Monk\n
+    7: Paladin\n
+    8: Ranger\n
+    9: Rogue\n
+    0: Sorcerer\n
+    11: Warlock\n
+    12: Wizard\n
+    13: Artificer\n 
+    """)
+    while True:
+        try:
+            choice = int(input("Pick a Class: "))
+            if choice == 1:
+                _Character["class"] = "Barbarian"
+                print("You are a Barbarian\n")
+            elif choice == 2:
+                _Character["class"] = "Bard"
+                print("You are a Bard\n")
+            elif choice == 3:
+                _Character["class"] = "Cleric"
+                print("You are a Cleric\n")
+            elif choice == 4:
+                _Character["class"] = "Druid"
+                print("You are a Druid\n")
+            elif choice == 5:
+                _Character["class"] = "Fighter"
+                print("You are a Fighter\n")
+            elif choice == 6:
+                _Character["class"] = "Monk"
+                print("You are a Monk\n")
+            elif choice == 7:
+                _Character["class"] = "Paladin"
+                print("You are a Paladin\n")
+            elif choice == 8:
+                _Character["class"] = "Ranger"
+                print("You are a Ranger\n")
+            elif choice == 9:
+                _Character["class"] = "Rogue"
+                print("You are a Rogue\n")
+            elif choice == 0:
+                _Character["class"] = "Sorcerer"
+                print("You are a Sorcerer\n")
+            elif choice == 11:
+                _Character["class"] = "Warlock"
+                print("You are a Warlock\n")
+            elif choice == 12:
+                _Character["class"] = "Wizard"
+                print("You are a Wizard\n")
+            elif choice == 13:
+                _Character["class"] = "Artificer"
+                print("You are a Artificer\n")
+
+        except ValueError:
+            print("Must be a number!\n")
+            continue 
 
 def updateLevel():
     while True:
@@ -685,4 +746,6 @@ def _Logo():
     ╚██████╗██║  ██║███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║               
      ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝               
     """)
-_MakeACharacter()
+
+# _MakeACharacter()
+
