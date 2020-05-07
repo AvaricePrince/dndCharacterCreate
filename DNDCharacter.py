@@ -1,19 +1,22 @@
 import linecache as line
+import sys
+thismodule = sys.modules[__name__]
 
 
 
 _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":""}
 Items = {}
-abilityScore = {"Strength":(5,"Modifier: ",-5), "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "**PROFICIENCY BONUS**":2}
+abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "Proficiency Bonus":""}
 savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
-# classSaves = {"barbarian":("str","con"), "bard":("dex","cha"), "cleric":("wis","cha")}
-#-----------GLOBAL VARIABLES--------#
-save = "s","c"
-sMod = -5
-dMod = ""
-cMod = ""
-iMod = ""
 
+#-----------GLOBAL VARIABLES--------#
+thismodule.save = "",""
+thismodule.sMod = ""
+thismodule.dMod = ""
+thismodule.cMod = ""
+thismodule.iMod = ""
+thismodule.wMod = ""
+thismodule.chMod = ""
 #-----------GLOBAL VARIABLES--------#
 
 #==========MAIN FUNCTION==========#
@@ -30,9 +33,11 @@ def _MakeACharacter():
             updateAlignment()
             updateBackground()
             updateAbilityScore()
+            calcSaveThrow()
             saveCharacter()
             saveAbilityScore()
-            print("Character created succesfully ")
+            saveSaveThrows()
+            print("Character created succesfully\n")
             addStuff()
         elif newCharacter == "N":
             lookUp = input("Would you like to look up a character? Y/N ")
@@ -42,19 +47,19 @@ def _MakeACharacter():
                 dele = input("Delete Everything? Y/N ")
                 if dele.capitalize() == "Y":
                     clearAllCharacters()
-                    print("All characters have been deleted!")
+                    print("All characters have been deleted!\n")
                 elif dele.capitalize() == "N":
-                    print("Have a good day Adventurer! ")
+                    print("Have a good day Adventurer!\n ")
                     break
             else:
-                print("Invalid entry")
+                print("Invalid entry\n")
                 continue
         else:
-            print("Try again")
+            print("Try again\n")
             continue
+#==========MAIN FUNCTION==========#
 
 #==========FUNCTIONS==========#
-
 def lookUpCharacter():
     while True:
         num = input("Which character do you want to see? ")
@@ -64,26 +69,27 @@ def lookUpCharacter():
                 print(line.getline("Character.txt", int(num)))
                 print(line.getline("stuff.txt", int(num)))
                 print(line.getline("ability.txt", int(num)))
+                print(line.getline("Saving Throws.txt", int(num)))
                 break
             else:
-                print("Character does not exit! ")
+                print("Character does not exit! \n")
                 break
 
         else:
-            print("Please enter a row number")
+            print("Please enter a row number\n")
             continue
 
 def updatePName():
     name = input("What is your irl name? ").capitalize()
     _Character["pname"]=name
-    print("Okay, your name is: " + name)
+    print("Okay, your name is: " + name + "\n")
 
 def updateCName():
     fname = input("Character's First name: ").capitalize()
     lname = input("Character's Last name: ").capitalize()
     _Character["fname"] = fname
     _Character["lname"] = lname
-    print("Your name is: " + fname, lname)
+    print("Your name is: " + fname, lname + "\n")
 
 def updateRace():
     # race = input("What is your race? ").capitalize()
@@ -155,7 +161,7 @@ def updateRace():
     """)
     while True:
         try:
-            choice = int(input("Choose your race: \n"))
+            choice = int(input("Choose your race: "))
             if choice == 1:
                 _Character["race"] = "Dragonborn"
                 print("You are a Dragonborn\n")
@@ -344,7 +350,10 @@ def updateClass():
     0: Sorcerer\n
     11: Warlock\n
     12: Wizard\n
+    ***Eberron: Rising from the Last War***\n
     13: Artificer\n 
+    ***Critical Role***\n
+    14: Blood Hunter\n
     """)
     while True:
         try:
@@ -352,55 +361,72 @@ def updateClass():
             if choice == 1:
                 _Character["class"] = "Barbarian"
                 print("You are a Barbarian\n")
-                save = "s","c"
+                thismodule.save = "s","c"
                 break
             elif choice == 2:
                 _Character["class"] = "Bard"
                 print("You are a Bard\n")
+                thismodule.save = "d","c"
                 break
             elif choice == 3:
                 _Character["class"] = "Cleric"
                 print("You are a Cleric\n")
+                thismodule.save = "w","c"
                 break
             elif choice == 4:
                 _Character["class"] = "Druid"
                 print("You are a Druid\n")
+                thismodule.save = "i","w"
                 break
             elif choice == 5:
                 _Character["class"] = "Fighter"
                 print("You are a Fighter\n")
+                thismodule.save = "s","c"
                 break
             elif choice == 6:
                 _Character["class"] = "Monk"
                 print("You are a Monk\n")
+                thismodule.save = "s","d"
                 break
             elif choice == 7:
                 _Character["class"] = "Paladin"
                 print("You are a Paladin\n")
+                thismodule.save = "w","c"
                 break
             elif choice == 8:
                 _Character["class"] = "Ranger"
                 print("You are a Ranger\n")
+                thismodule.save = "s","d"
                 break
             elif choice == 9:
                 _Character["class"] = "Rogue"
                 print("You are a Rogue\n")
+                thismodule.save = "d","i"
                 break
             elif choice == 0:
                 _Character["class"] = "Sorcerer"
                 print("You are a Sorcerer\n")
+                thismodule.save = "c","c"
                 break
             elif choice == 11:
                 _Character["class"] = "Warlock"
                 print("You are a Warlock\n")
+                thismodule.save = "w","c"
                 break
             elif choice == 12:
                 _Character["class"] = "Wizard"
                 print("You are a Wizard\n")
+                thismodule.save = "i","w"
                 break
             elif choice == 13:
                 _Character["class"] = "Artificer"
                 print("You are a Artificer\n")
+                thismodule.save = "c","i"
+                break
+            elif choice == 14:
+                _Character["class"] = "Blood Hunter"
+                print("You are a Artificer\n")
+                thismodule.save = "d","i"
                 break
             else:
                 print("Class does not exist\n")
@@ -415,16 +441,16 @@ def updateLevel():
         try:
             level = int(input("What level are you? Level: "))
             if level > 20:
-                print("Your level is too high!")
+                print("Your level is too high!\n")
                 continue
             elif level < 1:
-                print("You cant be a negative level!")
+                print("You cant be a negative level!\n")
                 continue
             proBo(level)
         except ValueError:
-            print("Invalid number")
+            print("Invalid number\n")
             continue
-        _Character["level"] = str(level)
+        _Character["level"] = level
         print("You're level " + str(level) + "\n")
         break
 
@@ -487,40 +513,47 @@ def updateAlignment():
             print("Okay, you're Unaligned \n")
             break
         else:
-            print("Invalid choice, try again")
+            print("Invalid choice, try again\n")
             continue
 
 #allows user to input their characters background
 def updateBackground():
     bg = input("What is your background? ").capitalize()
     _Character["background"] = bg
-    print("Your background is: " + bg)
+    print("Your background is: " + bg + "\n")
 
 #allows user to input their ability scores
 def updateAbilityScore():
-    # mod = 0
     while True:
         try:
             st = int(input("What did you roll for strength? "))
             if st < 2:
                 abilityScore["Strength"] = (st, "Modifier: ", -5)
-                modifier = -5
+                thismodule.sMod = -5
             elif st <= 3: 
                 abilityScore["Strength"] = (st, "Modifier: ", -4)
+                thismodule.sMod = -4
             elif st <= 5:
                 abilityScore["Strength"] = (st, "Modifer: ", -3)
+                thismodule.sMod = -3
             elif st <= 7:
                 abilityScore["Strength"] = (st, "Modifier: ", -2)
+                thismodule.sMod = -2
             elif st <= 9:
                 abilityScore["Strength"] = (st, "Modifier: ", -1)
+                thismodule.sMod = -1
             elif st <= 11:
                 abilityScore["Strength"] = (st, "Modifier: ", 0)
+                thismodule.sMod = 0
             elif st <= 13:
                 abilityScore["Strength"] = (st, "Modifier: ", 1)
+                thismodule.sMod = 1
             elif st <= 15:
                 abilityScore["Strength"] = (st, "Modifier: ", 2)
+                thismodule.sMod = 2
             elif st <= 17:
                 abilityScore["Strength"] = (st, "Modifier: ", 3)
+                thismodule.sMod = 3
             else:
                 print("Invalid entry")
                 continue
@@ -528,31 +561,31 @@ def updateAbilityScore():
             dex = int(input("What did you roll for Dexterity? "))
             if dex < 2:
                 abilityScore["Dexterity"] = (dex, "Modifier: ", -5)
-
+                thismodule.dMod = -5
             elif dex <= 3: 
                 abilityScore["Dexterity"] = (dex, "Modifier: ", -4)
-
+                thismodule.dMod = -4
             elif dex <= 5:
                 abilityScore["Dexterity"] = (dex, "Modifer: ", -3)
-
+                thismodule.dMod = -3
             elif dex <= 7:
                 abilityScore["Dexterity"] = (dex, "Modifier: ", -2)
-
+                thismodule.dMod = -2
             elif dex <= 9:
                 abilityScore["Dexterity"] = (dex, "Modifier: ", -1)
-
+                thismodule.dMod = -1
             elif dex <= 11:
                 abilityScore["Dexterity"] = (dex, "Modifier: ", 0)
- 
+                thismodule.dMod = 0
             elif dex <= 13:
                 abilityScore["Dexterity"] = (dex, "Modifier: ", 1)
-
+                thismodule.dMod = 1
             elif dex <= 15:
                 abilityScore["Dexterity"] = (dex, "Modifier: ", 2)
-
+                thismodule.dMod = 2
             elif dex <= 17:
                 abilityScore["Dexterity"] = (dex, "Modifier: ", 3)
-
+                thismodule.dMod = 3
             else:
                 print("Invalid entry")
                 continue
@@ -560,31 +593,31 @@ def updateAbilityScore():
             con = int(input("What did you roll for Constitution? "))
             if con < 2:
                 abilityScore["Constitution"] = (con, "Modifier: ",-5)
-
+                thismodule.cMod = -5
             elif con <= 3: 
                 abilityScore["Constitution"] = (con, "Modifier: ",-4)
-
+                thismodule.cMod = -4
             elif con <= 5:
                 abilityScore["Constitution"] = (con, "Modifer: ",-3)
-
+                thismodule.cMod = -3
             elif con <= 7:
                 abilityScore["Constitution"] = (con, "Modifier: ",-2)
-
+                thismodule.cMod = -2
             elif con <= 9:
                 abilityScore["Constitution"] = (con, "Modifier: ",-1)
-
+                thismodule.cMod = -1
             elif con <= 11:
                 abilityScore["Constitution"] = (con, "Modifier: ",0)
-              
+                thismodule.cMod = 0
             elif con <= 13:
                 abilityScore["Constitution"] = (con, "Modifier: ",1)
-               
+                thismodule.cMod = 1
             elif con <= 15:
                 abilityScore["Constitution"] = (con, "Modifier: ",2)
-              
+                thismodule.cMod = 2
             elif con <= 17:
                 abilityScore["Constitution"] = (con, "Modifier: ",3)
-               
+                thismodule.cMod = 3
             else:
                 print("Invalid entry")
                 continue
@@ -592,31 +625,31 @@ def updateAbilityScore():
             intel = int(input("What did you roll for Intelligence? "))
             if intel < 2:
                 abilityScore["Intelligence"] = (intel, "Modifier: ",-5)
-               
+                thismodule.iMod = -5
             elif intel <= 3: 
                 abilityScore["Intelligence"] = (intel, "Modifier: ",-4)
-           
+                thismodule.iMod = -4
             elif intel <= 5:
                 abilityScore["Intelligence"] = (intel, "Modifer: ",-3)
-                
+                thismodule.iMod = -3
             elif intel <= 7:
                 abilityScore["Intelligence"] = (intel, "Modifier: ",-2)
-               
+                thismodule.iMod = -2
             elif intel <= 9:
                 abilityScore["Intelligence"] = (intel, "Modifier: ",-1)
-             
+                thismodule.iMod = -1
             elif intel <= 11:
                 abilityScore["Intelligence"] = (intel, "Modifier: ",0)
-             
+                thismodule.iMod = 0
             elif intel <= 13:
                 abilityScore["Intelligence"] = (intel, "Modifier: ",1)
-       
+                thismodule.iMod = 1
             elif intel <= 15:
                 abilityScore["Intelligence"] = (intel, "Modifier: ",2)
-              
+                thismodule.iMod = 2
             elif intel <= 17:
                 abilityScore["Intelligence"] = (intel, "Modifier: ",3)
-    
+                thismodule.iMod = 3
             else:
                 print("Invalid entry")
                 continue
@@ -624,31 +657,31 @@ def updateAbilityScore():
             wis = int(input("What did you roll for Wisdom? "))
             if wis < 2:
                 abilityScore["Wisdom"] = (wis, "Modifier: ",-5)
-        
+                thismodule.wMod = -5
             elif wis <= 3: 
                 abilityScore["Wisdom"] = (wis, "Modifier: ",-4)
-             
+                thismodule.wMod = -4
             elif wis <= 5:
                 abilityScore["Wisdom"] = (wis, "Modifer: ",-3)
-             
+                thismodule.wMod = -3
             elif wis <= 7:
                 abilityScore["Wisdom"] = (wis, "Modifier: ",-2)
-              
+                thismodule.wMod = -2
             elif wis <= 9:
                 abilityScore["Wisdom"] = (wis, "Modifier: ",-1)
-        
+                thismodule.wMod = -1
             elif wis <= 11:
                 abilityScore["Wisdom"] = (wis, "Modifier: ",0)
-        
+                thismodule.wMod = 0
             elif wis <= 13:
                 abilityScore["Wisdom"] = (wis, "Modifier: ",1)
-         
+                thismodule.wMod = 1
             elif wis <= 15:
                 abilityScore["Wisdom"] = (wis, "Modifier: ",2)
-               
+                thismodule.wMod = 2
             elif wis <= 17:
                 abilityScore["Wisdom"] = (wis, "Modifier: ",3)
-           
+                thismodule.wMod = 3
             else:
                 print("Invalid entry")
                 continue
@@ -656,31 +689,31 @@ def updateAbilityScore():
             cha = int(input("What did you roll for Charisma? "))
             if cha < 2:
                 abilityScore["Charisma"] = (cha, "Modifier: ",-5)
-              
+                thismodule.chMod = -5
             elif cha <= 3: 
                 abilityScore["Charisma"] = (cha, "Modifier: ",-4)
-              
+                thismodule.chMod = -4
             elif cha <= 5:
                 abilityScore["Charisma"] = (cha, "Modifer: ",-3)
-             
+                thismodule.chMod = -3
             elif cha <= 7:
                 abilityScore["Charisma"] = (cha, "Modifier: ",-2)
-                
+                thismodule.chMod = -2
             elif cha <= 9:
                 abilityScore["Charisma"] = (cha, "Modifier: ",-1)
-               
+                thismodule.chMod = -1
             elif cha <= 11:
                 abilityScore["Charisma"] = (cha, "Modifier: ",0)
-                
+                thismodule.chMod = 0
             elif cha <= 13:
                 abilityScore["Charisma"] = (cha, "Modifier: ",1)
-                
+                thismodule.chMod = 1
             elif cha <= 15:
                 abilityScore["Charisma"] = (cha, "Modifier: ",2)
-                
+                thismodule.chMod = 2
             elif cha <= 17:
                 abilityScore["Charisma"] = (cha, "Modifier: ",3)
-               
+                thismodule.chMod = 3
             else:
                 print("Invalid entry")
                 continue
@@ -692,17 +725,6 @@ def updateAbilityScore():
             return st,dex,con,intel,wis,cha
             break
     saveAbilityScore()
-
-#saves the character the user created when invoked      
-def saveCharacter():
-    f = open("Character.txt", "a")
-    f.write( str(_Character) + "\n" )
-    f.close()
-
-#reads the Character.txt file 
-def readSavedCharacter():
-    f = open("Character.txt", "r")
-    print(f.read())
 
 #adds items to the Items dictionary
 def addStuff():
@@ -716,13 +738,24 @@ def addStuff():
         Items[item] = amount
         addStuff()
     elif stuff.capitalize() == "N":
-        print("no items added")
+        print("No items added \n")
         saveStuff()
         for key, val in Items.items():
-            print("You have " + val + " " + key)
+            print("You have " + val + " " + key +"\n")
     else:
         print("invalid")
         addStuff()
+
+#saves the character the user created when invoked      
+def saveCharacter():
+    f = open("Character.txt", "a")
+    f.write( str(_Character) + "\n" )
+    f.close()
+
+#reads the Character.txt file 
+def readSavedCharacter():
+    f = open("Character.txt", "r")
+    print(f.read())
 
 #saves items to the Items dictionary
 def saveStuff():
@@ -736,24 +769,34 @@ def saveAbilityScore():
     f.write( str(abilityScore) + "\n")
     f.close()
 
+def saveSaveThrows():
+    f = open("Saving Throws.txt","a")
+    f.write( str(savingThrows) + "\n")
+    f.close()
+
+def readSaveThrows():
+    f.open("Saving Throws.txt", "r")
+    print(f.read())
+ 
 #deletes all information on every text file when invoked!!
 def clearAllCharacters():
     f = open("Character.txt", "w").close()
     f = open("stuff.txt", "w").close()
     f = open("ability.txt", "w").close()
+    f = open("Saving Throws.txt", "w").close()
 
 #calculates the proficiency bonus based on inputed level
-def proBo(level = None):
-    for i in range(1,4):
-        abilityScore["**PROFICIENCY BONUS**"] = 2
-    for i in range(5,9):
-        abilityScore["**PROFICIENCY BONUS**"] = 3
-    for i in range(9,13):
-        abilityScore["**PROFICIENCY BONUS**"] = 4
-    for i in range(13,17):
-        abilityScore["**PROFICIENCY BONUS**"] = 5
-    for i in range(17,21):
-        abilityScore["**PROFICIENCY BONUS**"] = 6
+def proBo(level):
+    if 1 <  level <= 4:
+        abilityScore["Proficiency Bonus"] = 2
+    elif 5 < level <=9:
+        abilityScore["Proficiency Bonus"] = 3
+    elif 9 < level <=13:
+        abilityScore["Proficiency Bonus"] = 4
+    elif 13 < level <=17:
+        abilityScore["Proficiency Bonus"] = 5
+    elif 17 < level <=21:
+        abilityScore["Proficiency Bonus"] = 6
 
 def _Logo():
     print("""
@@ -777,13 +820,42 @@ def _Logo():
      ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝               
     """)
 
-# def calcSaveThrow():
-#     savingThrows["Saving Strength"] = modifier
-#     savingThrows["Saving Dexterity"] 
-#     savingThrows["Saving Constitution"]
-#     savingThrows["Saving Intelligence"]
-#     savingThrows["Saving Wisdom"]
-#     savingThrows["Saving Charisma"]
+#calculates what your saving throw will be based off of ur level and class
+def calcSaveThrow():
+    savingThrows["Saving Strength"] = sMod
+    savingThrows["Saving Dexterity"] = dMod
+    savingThrows["Saving Constitution"] = cMod
+    savingThrows["Saving Intelligence"] = iMod
+    savingThrows["Saving Wisdom"] = wMod
+    savingThrows["Saving Charisma"] = chMod
 
+    if save == ("s","c"):
+        savingThrows["Saving Strength"] = sMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Constitution"] = cMod + abilityScore.get("Proficiency Bonus")
+    elif save == ("d","c"):
+        savingThrows["Saving Dexterity"] = dMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Charisma"] = chMod + abilityScore.get("Proficiency Bonus")
+    elif save == ("w","c"):
+        savingThrows["Saving Wisdom"] = wMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Charisma"] = chMod + abilityScore.get("Proficiency Bonus")
+    elif save == ("i","w"):
+        savingThrows["Saving Intelligence"] = iMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Wisdom"] = wMod + abilityScore.get("Proficiency Bonus")
+    elif save == ("s","d"):
+        savingThrows["Saving Strength"] = sMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Dexterity"] = dMod + abilityScore.get("Proficiency Bonus")
+    elif save == ("d","i"):
+        savingThrows["Saving Dexterity"] = dMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Intelligence"] = iMod + abilityScore.get("Proficiency Bonus")
+    elif save == ("c","c"):
+        savingThrows["Saving Constitution"] = cMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Charisma"] = chMod + abilityScore.get("Proficiency Bonus")
+    elif save == ("c","i"):
+        savingThrows["Saving Constitution"] = cMod + abilityScore.get("Proficiency Bonus")
+        savingThrows["Saving Intelligence"] = iMod + abilityScore.get("Proficiency Bonus")
+#==========FUNCTIONS==========#
+
+#==========RUN PROGRAM==========#
 _MakeACharacter()
+#==========RUN PROGRAM==========#
 
