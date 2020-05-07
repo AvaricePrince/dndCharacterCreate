@@ -3,11 +3,12 @@ import sys
 thismodule = sys.modules[__name__]
 
 
-
+#==========DICTIONARIES==========#
 _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":""}
 Items = {}
 abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "Proficiency Bonus":""}
 savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
+#==========DICTIONARIES==========#
 
 #-----------GLOBAL VARIABLES--------#
 thismodule.save = "",""
