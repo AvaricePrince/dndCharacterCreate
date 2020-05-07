@@ -141,6 +141,179 @@ def updateRace():
     **One Grung Above**\n
     41: Grung\n
     """)
+    while True:
+        try:
+            choice = int(input("Choose your race: \n"))
+            if choice == 1:
+                _Character["race"] = "Dragonborn"
+                print("You are a Dragonborn\n")
+                break
+            elif choice == 2:
+                _Character["race"] = "Dwarf"
+                print("You are a Dwarf\n")
+                break
+            elif choice == 3:
+                _Character["race"] = "Elf"
+                print("You are a Elf\n")
+                break
+            elif choice == 4:
+                _Character["race"] = "Gnome"
+                print("You are a Gnome\n")
+                break
+            elif choice == 5:
+                _Character["race"] = "Half-Elf"
+                print("You are a Half-Elf\n")
+                break
+            elif choice == 6:
+                _Character["race"] = "Halfling"
+                print("You are a Halfling\n")
+                break
+            elif choice == 7:
+                _Character["race"] = "Half-Orc"
+                print("You are a Half-Orc\n")
+                break
+            elif choice == 8:
+                _Character["race"] = "Human"
+                print("You are a Human\n")
+                break
+            elif choice == 9:
+                _Character["race"] = "Tiefling"
+                print("You are a Tiefling\n")
+                break
+            elif choice == 0:
+                _Character["race"] = "Orc of Exandria"
+                print("You are an Orc of Exandria\n")
+                break
+            elif choice == 11:
+                _Character["race"] = "Aarakocra"
+                print("You are a Aarakocra\n")
+                break
+            elif choice == 12:
+                _Character["race"] = "Genasi"
+                print("You are a Genasi\n")
+                break
+            elif choice == 13:
+                _Character["race"] = "Goliath"
+                print("You are a Goliath\n")
+                break
+            elif choice == 14:
+                _Character["race"] = "Aasimar"
+                print("You are a Aasimar\n")
+                break
+            elif choice == 15:
+                _Character["race"] = "Bugbear"
+                print("You are a Bugbear\n")
+                break
+            elif choice == 16:
+                _Character["race"] = "Firblog"
+                print("You are a Firblog\n")
+                break
+            elif choice == 17:
+                _Character["race"] = "Goblin"
+                print("You are a Goblin\n")
+                break
+            elif choice == 18:
+                _Character["race"] = "Hobgoblin"
+                print("You are a Hobgoblin\n")
+                break
+            elif choice == 19:
+                _Character["race"] = "Kenku"
+                print("You are a Kenku\n")
+                break
+            elif choice == 20:
+                _Character["race"] = "Kobold"
+                print("You are a Kobold\n")
+                break
+            elif choice == 21:
+                _Character["race"] = "Lizardfolk"
+                print("You are a Lizardfolk\n")
+                break
+            elif choice == 22:
+                _Character["race"] = "Orc"
+                print("You are a Orc\n")
+                break
+            elif choice == 23:
+                _Character["race"] = "Tabaxi"
+                print("You are a Tabaxi\n")
+                break
+            elif choice == 24:
+                _Character["race"] = "Triton"
+                print("You are a Triton\n")
+                break
+            elif choice == 25:
+                _Character["race"] = "Yuan-ti Pureblood"
+                print("You are a Yuan-ti Pureblood\n")
+                break
+            elif choice == 26:
+                _Character["race"] = "Feral Tiefling"
+                print("You are a Feral Tiefling\n")
+                break
+            elif choice == 27:
+                _Character["race"] = "Tortle"
+                print("You are a Tortle\n")
+                break
+            elif choice == 28:
+                _Character["race"] = "Changeling"
+                print("You are a Changeling\n")
+                break
+            elif choice == 29:
+                _Character["race"] = "Kalashtar"
+                print("You are a Kalashtar\n")
+                break
+            elif choice == 30:
+                _Character["race"] = "Orc of Eberron"
+                print("You are an Orc of Eberron\n")
+                break
+            elif choice == 31:
+                _Character["race"] = "Shifter"
+                print("You are a Shifter\n")
+                break
+            elif choice == 32:
+                _Character["race"] = "Warforged"
+                print("You are a Warforged\n")
+                break
+            elif choice == 33:
+                _Character["race"] = "Gith"
+                print("You are a Gith\n")
+                break
+            elif choice == 34:
+                _Character["race"] = "Centaur"
+                print("You are a Centaur\n")
+                break
+            elif choice == 35:
+                _Character["race"] = "Loxodon"
+                print("You are a Loxodon\n")
+                break
+            elif choice == 36:
+                _Character["race"] = "Minotaur"
+                print("You are a Minotaur\n")
+                break
+            elif choice == 37:
+                _Character["race"] = "Simic Hybrid"
+                print("You are a Simic Hybrid\n")
+                break
+            elif choice == 38:
+                _Character["race"] = "Vedalken"
+                print("You are a Vedalken\n")
+                break
+            elif choice == 39:
+                _Character["race"] = "Verdan"
+                print("You are a Verdan\n")
+                break
+            elif choice == 40:
+                _Character["race"] = "Locathah"
+                print("You are a Locathah\n")
+                break
+            elif choice == 41:
+                _Character["race"] = "Grung"
+                print("You are a Grung\n")
+                break
+            else:
+                print("No race selected")
+                continue
+        except ValueError:
+            print("Invalid, must be a number")
+            continue
 
 def updateClass():
     _class = input("What is your class? ").capitalize()
@@ -162,7 +335,7 @@ def updateLevel():
             print("Invalid number")
             continue
         _Character["level"] = str(level)
-        print("You're level " + str(level))
+        print("You're level " + str(level) + "\n")
         break
 
 #allows user to input their characters alignment
@@ -493,24 +666,23 @@ def proBo(level = None):
 
 def _Logo():
     print("""
-██████╗ ███╗   ██╗██████╗                                                
-██╔══██╗████╗  ██║██╔══██╗                                               
-██║  ██║██╔██╗ ██║██║  ██║                                               
-██║  ██║██║╚██╗██║██║  ██║                                               
-██████╔╝██║ ╚████║██████╔╝                                               
-╚═════╝ ╚═╝  ╚═══╝╚═════╝                                                
- ██████╗██╗  ██╗ █████╗ ██████╗  █████╗  ██████╗████████╗███████╗██████╗ 
-██╔════╝██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗
-██║     ███████║███████║██████╔╝███████║██║        ██║   █████╗  ██████╔╝
-██║     ██╔══██║██╔══██║██╔══██╗██╔══██║██║        ██║   ██╔══╝  ██╔══██╗
-╚██████╗██║  ██║██║  ██║██║  ██║██║  ██║╚██████╗   ██║   ███████╗██║  ██║
- ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
- ██████╗██████╗ ███████╗ █████╗ ████████╗ ██████╗ ██████╗                
-██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗               
-██║     ██████╔╝█████╗  ███████║   ██║   ██║   ██║██████╔╝               
-██║     ██╔══██╗██╔══╝  ██╔══██║   ██║   ██║   ██║██╔══██╗               
-╚██████╗██║  ██║███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║               
- ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝               
-                                                                         
-""")
+    ██████╗ ███╗   ██╗██████╗                                                
+    ██╔══██╗████╗  ██║██╔══██╗                                               
+    ██║  ██║██╔██╗ ██║██║  ██║                                               
+    ██║  ██║██║╚██╗██║██║  ██║                                               
+    ██████╔╝██║ ╚████║██████╔╝                                               
+    ╚═════╝ ╚═╝  ╚═══╝╚═════╝                                                
+     ██████╗██╗  ██╗ █████╗ ██████╗  █████╗  ██████╗████████╗███████╗██████╗ 
+    ██╔════╝██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗
+    ██║     ███████║███████║██████╔╝███████║██║        ██║   █████╗  ██████╔╝
+    ██║     ██╔══██║██╔══██║██╔══██╗██╔══██║██║        ██║   ██╔══╝  ██╔══██╗
+    ╚██████╗██║  ██║██║  ██║██║  ██║██║  ██║╚██████╗   ██║   ███████╗██║  ██║
+     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
+     ██████╗██████╗ ███████╗ █████╗ ████████╗ ██████╗ ██████╗                
+    ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗               
+    ██║     ██████╔╝█████╗  ███████║   ██║   ██║   ██║██████╔╝               
+    ██║     ██╔══██╗██╔══╝  ██╔══██║   ██║   ██║   ██║██╔══██╗               
+    ╚██████╗██║  ██║███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║               
+     ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝               
+    """)
 _MakeACharacter()
