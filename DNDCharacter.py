@@ -1,5 +1,5 @@
 """
-
+Copyright 2020, Raul Mendez, All rights reserved
 """
 
 import linecache as line
