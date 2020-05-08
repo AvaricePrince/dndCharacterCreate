@@ -1,10 +1,14 @@
+"""
+
+"""
+
 import linecache as line
 import sys
 thismodule = sys.modules[__name__]
 
 
 #==========DICTIONARIES==========#
-_Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":""}
+_Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":"","background":""}
 Items = {}
 abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "Proficiency Bonus":""}
 savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
@@ -335,107 +339,131 @@ def updateRace():
             continue
 
 def updateClass():
-    # _class = input("What is your class? ").capitalize()
-    # _Character["class"] = _class
-    # print("Your class is " + _class + "\n")
-    print("""---SELECT A CLASS---
-    1: Barbarian\n
-    2: Bard\n
-    3: Cleric\n
-    4: Druid\n
-    5: Fighter\n
-    6: Monk\n
-    7: Paladin\n
-    8: Ranger\n
-    9: Rogue\n
-    0: Sorcerer\n
-    11: Warlock\n
-    12: Wizard\n
-    ***Eberron: Rising from the Last War***\n
-    13: Artificer\n 
-    ***Critical Role***\n
-    14: Blood Hunter\n
-    """)
+    _class = {"\n-----SELECT A CLASS-----":"", 1:"Barbarian", 2:"Bard",3:"Cleric",4: "Druid",5: "Fighter",
+    6: "Monk",7:"Paladin",8:"Ranger",9:"Rogue",10:"Sorcerer",11:"Warlock",12:"Wizard",
+    "***Eberron: Rising from the Last War***":"",13:"Artificer","***Critical Role***":"",14:"Blood Hunter"}
+    for key in _class:
+        print(str(key) + ":", _class[key],"\n")
+    # for i in critClss:
+    #     print(i)
+    # print("""---SELECT A CLASS---
+    # 1: Barbarian\n
+    # 2: Bard\n
+    # 3: Cleric\n
+    # 4: Druid\n
+    # 5: Fighter\n
+    # 6: Monk\n
+    # 7: Paladin\n
+    # 8: Ranger\n
+    # 9: Rogue\n
+    # 0: Sorcerer\n
+    # 11: Warlock\n
+    # 12: Wizard\n
+    # ***Eberron: Rising from the Last War***\n
+    # 13: Artificer\n 
+    # ***Critical Role***\n
+    # 14: Blood Hunter\n
+    # """)
     while True:
         try:
             choice = int(input("Pick a Class: "))
-            if choice == 1:
-                _Character["class"] = "Barbarian"
-                print("You are a Barbarian\n")
+            _Character["class"] = _class.get(choice,"Invalid\n")
+            print("\nYou are a:",_Character.get("class"))
+            if _class.get(choice) == "Barbarian":
                 thismodule.save = "s","c"
                 break
-            elif choice == 2:
-                _Character["class"] = "Bard"
-                print("You are a Bard\n")
+            elif _class.get(choice) == "Bard":
                 thismodule.save = "d","c"
                 break
-            elif choice == 3:
-                _Character["class"] = "Cleric"
-                print("You are a Cleric\n")
+            elif _class.get(choice) == "Cleric":
                 thismodule.save = "w","c"
                 break
-            elif choice == 4:
-                _Character["class"] = "Druid"
-                print("You are a Druid\n")
+            elif _class.get(choice) == "Druid":
                 thismodule.save = "i","w"
                 break
-            elif choice == 5:
-                _Character["class"] = "Fighter"
-                print("You are a Fighter\n")
-                thismodule.save = "s","c"
-                break
-            elif choice == 6:
-                _Character["class"] = "Monk"
-                print("You are a Monk\n")
-                thismodule.save = "s","d"
-                break
-            elif choice == 7:
-                _Character["class"] = "Paladin"
-                print("You are a Paladin\n")
-                thismodule.save = "w","c"
-                break
-            elif choice == 8:
-                _Character["class"] = "Ranger"
-                print("You are a Ranger\n")
-                thismodule.save = "s","d"
-                break
-            elif choice == 9:
-                _Character["class"] = "Rogue"
-                print("You are a Rogue\n")
-                thismodule.save = "d","i"
-                break
-            elif choice == 0:
-                _Character["class"] = "Sorcerer"
-                print("You are a Sorcerer\n")
-                thismodule.save = "c","c"
-                break
-            elif choice == 11:
-                _Character["class"] = "Warlock"
-                print("You are a Warlock\n")
-                thismodule.save = "w","c"
-                break
-            elif choice == 12:
-                _Character["class"] = "Wizard"
-                print("You are a Wizard\n")
-                thismodule.save = "i","w"
-                break
-            elif choice == 13:
-                _Character["class"] = "Artificer"
-                print("You are a Artificer\n")
-                thismodule.save = "c","i"
-                break
-            elif choice == 14:
-                _Character["class"] = "Blood Hunter"
-                print("You are a Artificer\n")
-                thismodule.save = "d","i"
-                break
-            else:
-                print("Class does not exist\n")
-                continue
+
+
+
+
+            # if _class[choice]:
+            #     _Character["class"] = "Barbarian"
+            #     print("\n" + "You are a Barbarian\n")
+            #     thismodule.save = "s","c"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Bard"
+            #     print("You are a Bard\n")
+            #     thismodule.save = "d","c"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Cleric"
+            #     print("You are a Cleric\n")
+            #     thismodule.save = "w","c"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Druid"
+            #     print("You are a Druid\n")
+            #     thismodule.save = "i","w"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Fighter"
+            #     print("You are a Fighter\n")
+            #     thismodule.save = "s","c"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Monk"
+            #     print("You are a Monk\n")
+            #     thismodule.save = "s","d"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Paladin"
+            #     print("You are a Paladin\n")
+            #     thismodule.save = "w","c"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Ranger"
+            #     print("You are a Ranger\n")
+            #     thismodule.save = "s","d"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Rogue"
+            #     print("You are a Rogue\n")
+            #     thismodule.save = "d","i"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Sorcerer"
+            #     print("You are a Sorcerer\n")
+            #     thismodule.save = "c","c"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Warlock"
+            #     print("You are a Warlock\n")
+            #     thismodule.save = "w","c"
+            #     break
+            # elif _class[choice]:
+            #     _Character["class"] = "Wizard"
+            #     print("You are a Wizard\n")
+            #     thismodule.save = "i","w"
+            #     break
+            # elif _class[choice+1]:
+            #     _Character["class"] = "Artificer"
+            #     print("You are a Artificer\n")
+            #     thismodule.save = "c","i"
+            #     break
+            # elif choice == 14:
+            #     _Character["class"] = "Blood Hunter"
+            #     print("You are a Artificer\n")
+            #     thismodule.save = "d","i"
+            #     break
+            # else:
+            #     print("Class does not exist\n")
+            #     continue
 
         except ValueError:
-            print("Must be a number!\n")
+            print("\nMust be a number!\n")
             continue 
+        except IndexError:
+            print("there was an error")
 
 def updateLevel():
     while True:
@@ -770,10 +798,12 @@ def saveAbilityScore():
     f.write( str(abilityScore) + "\n")
     f.close()
 
+
 def saveSaveThrows():
     f = open("Saving Throws.txt","a")
     f.write( str(savingThrows) + "\n")
     f.close()
+
 
 def readSaveThrows():
     f.open("Saving Throws.txt", "r")
@@ -798,6 +828,7 @@ def proBo(level):
         abilityScore["Proficiency Bonus"] = 5
     elif 17 < level <=21:
         abilityScore["Proficiency Bonus"] = 6
+
 
 def _Logo():
     print("""
@@ -857,6 +888,6 @@ def calcSaveThrow():
 #==========FUNCTIONS==========#
 
 #==========RUN PROGRAM==========#
-_MakeACharacter()
+# _MakeACharacter()
 #==========RUN PROGRAM==========#
-
+updateClass()
