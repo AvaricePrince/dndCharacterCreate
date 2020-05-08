@@ -97,243 +97,25 @@ def updateCName():
     print("Your name is: " + fname, lname + "\n")
 
 def updateRace():
-    # race = input("What is your race? ").capitalize()
-    # _Character["race"] = race
-    # print("You are a " + race)
-    print("""
-    --Select a Race--\n
-    1: Dragonborn\n
-    2: Dwarf\n
-    3: Elf\n
-    4: Gnome\n
-    5: Half-Elf\n
-    6: Halfling\n
-    7: Half-Orc\n
-    8: Human\n
-    9: Tiefling\n
-    """)
-    print("*Explorer's Guide to Wildemount*\n")
-    print("""
-    0: Orc of Exandria\n""")
-    print("*Elemental Evil Player's Companion*\n")
-    print("""
-    11: Aarakocra\n
-    12: Genasi\n
-    13: Goliath\n
-    """)
-    print("*Volo's Guide to Monsters*")
-    print("""
-    14: Aasimar\n
-    15: Bugbear\n
-    16: Firblog\n
-    17: Goblin\n
-    18: Hobgoblin\n
-    19: Kenku\n
-    20: Kobold\n
-    21: Lizardfolk\n
-    22: Orc\n
-    23: Tabaxi\n
-    24: Triton\n
-    25: Yuan-ti Pureblood\n
-    """)
-    print("*Sword Coast Adventurer's Guide*\n")
-    print("""
-    26: Feral Tiefling\n
-    """)
-    print("""
-    **The Tortle Package**\n
-    27: Tortle\n
-    *Eberron: Rising from the Last War*\n
-    28: Changeling\n
-    29: Kalashtar\n
-    30: Orc of Eberron\n
-    31: Shifter\n
-    32: Warforged\n
-    **Mordenkainen's Tome of Foes**\n
-    33: Gith\n
-    **Guildmasters' Guide to Ravnica**\n
-    34: Centaur\n
-    35: Loxodon\n
-    36: Minotaur\n
-    37: Simic Hybrid\n
-    38: Vedalken\n
-    **Acquisitions Incorporated**\n
-    39: Verdan\n
-    **Locathah Rising**\n
-    40: Locathah\n
-    **One Grung Above**\n
-    41: Grung\n
-    """)
+    race = {"\n-----SELECT A CLASS-----":"",1:"Dragonborn",2:"Dwarf",3:"Elf",4:"Gnome",5:"Half-Elf",6:"Halfling",7:"Half-Orc",8:"Human",9:"Tiefling",
+    "**Explorer's Guide to Wildemount**":"",10:"Orc of Exandria","**Elemental Evil Player's Companion**":"",11:"Aarakocra",
+    12:"Genasi",13:"Goliath","**Volo's Guide to Monsters**":"",14:"Aasimar",15:"Bugbear",16:"Firblog",17:"Goblin",18:"Hobgoblin",19:"Kenku",
+    20:"Kobold",21:"Lizardfolk",22:"Orc",23:"Tabaxi",24:"Triton",25:"Yuan-ti Pureblood","**Sword Coast Adventurer's Guide**":"",
+    26:"Feral Tiefling","**The Tortle Package**":"",27:"Tortle","**Eberron: Rising from the Last War**":"",28:"Changeling",29:"Kalashtar",30:"Orc of Eberron",31:"Shifter",32:"Warforged",
+    "**Mordenkainen's Tome of Foes**":"",33:"Gith","**Guildmasters' Guide to Ravnica**":"",34:"Centaur",35:"Loxodon",36:"Minotaur",37:"Simic Hybrid",38:"Vedalken","**Acquisitions Incorporated**":"",
+    39:"Verdan","**Locathah Rising**":"",40:"Locathah","**One Grung Above**":"",41:"Grung\n"}
+    for key in race:
+        print("\n" + str(key)+":",race.get(key))
+
     while True:
         try:
             choice = int(input("Choose your race: "))
-            if choice == 1:
-                _Character["race"] = "Dragonborn"
-                print("You are a Dragonborn\n")
-                break
-            elif choice == 2:
-                _Character["race"] = "Dwarf"
-                print("You are a Dwarf\n")
-                break
-            elif choice == 3:
-                _Character["race"] = "Elf"
-                print("You are a Elf\n")
-                break
-            elif choice == 4:
-                _Character["race"] = "Gnome"
-                print("You are a Gnome\n")
-                break
-            elif choice == 5:
-                _Character["race"] = "Half-Elf"
-                print("You are a Half-Elf\n")
-                break
-            elif choice == 6:
-                _Character["race"] = "Halfling"
-                print("You are a Halfling\n")
-                break
-            elif choice == 7:
-                _Character["race"] = "Half-Orc"
-                print("You are a Half-Orc\n")
-                break
-            elif choice == 8:
-                _Character["race"] = "Human"
-                print("You are a Human\n")
-                break
-            elif choice == 9:
-                _Character["race"] = "Tiefling"
-                print("You are a Tiefling\n")
-                break
-            elif choice == 0:
-                _Character["race"] = "Orc of Exandria"
-                print("You are an Orc of Exandria\n")
-                break
-            elif choice == 11:
-                _Character["race"] = "Aarakocra"
-                print("You are a Aarakocra\n")
-                break
-            elif choice == 12:
-                _Character["race"] = "Genasi"
-                print("You are a Genasi\n")
-                break
-            elif choice == 13:
-                _Character["race"] = "Goliath"
-                print("You are a Goliath\n")
-                break
-            elif choice == 14:
-                _Character["race"] = "Aasimar"
-                print("You are a Aasimar\n")
-                break
-            elif choice == 15:
-                _Character["race"] = "Bugbear"
-                print("You are a Bugbear\n")
-                break
-            elif choice == 16:
-                _Character["race"] = "Firblog"
-                print("You are a Firblog\n")
-                break
-            elif choice == 17:
-                _Character["race"] = "Goblin"
-                print("You are a Goblin\n")
-                break
-            elif choice == 18:
-                _Character["race"] = "Hobgoblin"
-                print("You are a Hobgoblin\n")
-                break
-            elif choice == 19:
-                _Character["race"] = "Kenku"
-                print("You are a Kenku\n")
-                break
-            elif choice == 20:
-                _Character["race"] = "Kobold"
-                print("You are a Kobold\n")
-                break
-            elif choice == 21:
-                _Character["race"] = "Lizardfolk"
-                print("You are a Lizardfolk\n")
-                break
-            elif choice == 22:
-                _Character["race"] = "Orc"
-                print("You are a Orc\n")
-                break
-            elif choice == 23:
-                _Character["race"] = "Tabaxi"
-                print("You are a Tabaxi\n")
-                break
-            elif choice == 24:
-                _Character["race"] = "Triton"
-                print("You are a Triton\n")
-                break
-            elif choice == 25:
-                _Character["race"] = "Yuan-ti Pureblood"
-                print("You are a Yuan-ti Pureblood\n")
-                break
-            elif choice == 26:
-                _Character["race"] = "Feral Tiefling"
-                print("You are a Feral Tiefling\n")
-                break
-            elif choice == 27:
-                _Character["race"] = "Tortle"
-                print("You are a Tortle\n")
-                break
-            elif choice == 28:
-                _Character["race"] = "Changeling"
-                print("You are a Changeling\n")
-                break
-            elif choice == 29:
-                _Character["race"] = "Kalashtar"
-                print("You are a Kalashtar\n")
-                break
-            elif choice == 30:
-                _Character["race"] = "Orc of Eberron"
-                print("You are an Orc of Eberron\n")
-                break
-            elif choice == 31:
-                _Character["race"] = "Shifter"
-                print("You are a Shifter\n")
-                break
-            elif choice == 32:
-                _Character["race"] = "Warforged"
-                print("You are a Warforged\n")
-                break
-            elif choice == 33:
-                _Character["race"] = "Gith"
-                print("You are a Gith\n")
-                break
-            elif choice == 34:
-                _Character["race"] = "Centaur"
-                print("You are a Centaur\n")
-                break
-            elif choice == 35:
-                _Character["race"] = "Loxodon"
-                print("You are a Loxodon\n")
-                break
-            elif choice == 36:
-                _Character["race"] = "Minotaur"
-                print("You are a Minotaur\n")
-                break
-            elif choice == 37:
-                _Character["race"] = "Simic Hybrid"
-                print("You are a Simic Hybrid\n")
-                break
-            elif choice == 38:
-                _Character["race"] = "Vedalken"
-                print("You are a Vedalken\n")
-                break
-            elif choice == 39:
-                _Character["race"] = "Verdan"
-                print("You are a Verdan\n")
-                break
-            elif choice == 40:
-                _Character["race"] = "Locathah"
-                print("You are a Locathah\n")
-                break
-            elif choice == 41:
-                _Character["race"] = "Grung"
-                print("You are a Grung\n")
-                break
+            if choice not in range(1,42):
+                print("\nRace does not exist!\n")
             else:
-                print("No race selected\n")
-                continue
+                _Character["race"] = race.get(choice)
+                print("\nYou are a: " + _Character.get("race") + "\n")
+                break
         except ValueError:
             print("Invalid, must be a number\n")
             continue
@@ -344,121 +126,57 @@ def updateClass():
     "***Eberron: Rising from the Last War***":"",13:"Artificer","***Critical Role***":"",14:"Blood Hunter"}
     for key in _class:
         print(str(key) + ":", _class[key],"\n")
-    # for i in critClss:
-    #     print(i)
-    # print("""---SELECT A CLASS---
-    # 1: Barbarian\n
-    # 2: Bard\n
-    # 3: Cleric\n
-    # 4: Druid\n
-    # 5: Fighter\n
-    # 6: Monk\n
-    # 7: Paladin\n
-    # 8: Ranger\n
-    # 9: Rogue\n
-    # 0: Sorcerer\n
-    # 11: Warlock\n
-    # 12: Wizard\n
-    # ***Eberron: Rising from the Last War***\n
-    # 13: Artificer\n 
-    # ***Critical Role***\n
-    # 14: Blood Hunter\n
-    # """)
     while True:
         try:
             choice = int(input("Pick a Class: "))
-            _Character["class"] = _class.get(choice,"Invalid\n")
-            print("\nYou are a:",_Character.get("class"))
-            if _class.get(choice) == "Barbarian":
-                thismodule.save = "s","c"
-                break
-            elif _class.get(choice) == "Bard":
-                thismodule.save = "d","c"
-                break
-            elif _class.get(choice) == "Cleric":
-                thismodule.save = "w","c"
-                break
-            elif _class.get(choice) == "Druid":
-                thismodule.save = "i","w"
-                break
+            if choice not in range(1,15):
+                print("\nRace does not exist\n")
+            else:
+                _Character["class"] = _class.get(choice)
+                print("\nYou are a:",_Character.get("class"),"\n")
 
-
-
-
-            # if _class[choice]:
-            #     _Character["class"] = "Barbarian"
-            #     print("\n" + "You are a Barbarian\n")
-            #     thismodule.save = "s","c"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Bard"
-            #     print("You are a Bard\n")
-            #     thismodule.save = "d","c"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Cleric"
-            #     print("You are a Cleric\n")
-            #     thismodule.save = "w","c"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Druid"
-            #     print("You are a Druid\n")
-            #     thismodule.save = "i","w"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Fighter"
-            #     print("You are a Fighter\n")
-            #     thismodule.save = "s","c"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Monk"
-            #     print("You are a Monk\n")
-            #     thismodule.save = "s","d"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Paladin"
-            #     print("You are a Paladin\n")
-            #     thismodule.save = "w","c"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Ranger"
-            #     print("You are a Ranger\n")
-            #     thismodule.save = "s","d"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Rogue"
-            #     print("You are a Rogue\n")
-            #     thismodule.save = "d","i"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Sorcerer"
-            #     print("You are a Sorcerer\n")
-            #     thismodule.save = "c","c"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Warlock"
-            #     print("You are a Warlock\n")
-            #     thismodule.save = "w","c"
-            #     break
-            # elif _class[choice]:
-            #     _Character["class"] = "Wizard"
-            #     print("You are a Wizard\n")
-            #     thismodule.save = "i","w"
-            #     break
-            # elif _class[choice+1]:
-            #     _Character["class"] = "Artificer"
-            #     print("You are a Artificer\n")
-            #     thismodule.save = "c","i"
-            #     break
-            # elif choice == 14:
-            #     _Character["class"] = "Blood Hunter"
-            #     print("You are a Artificer\n")
-            #     thismodule.save = "d","i"
-            #     break
-            # else:
-            #     print("Class does not exist\n")
-            #     continue
-
+                if _class.get(choice) == "Barbarian":
+                    thismodule.save = "s","c"
+                    break
+                elif _class.get(choice) == "Bard":
+                    thismodule.save = "d","c"
+                    break
+                elif _class.get(choice) == "Cleric":
+                    thismodule.save = "w","c"
+                    break
+                elif _class.get(choice) == "Druid":
+                    thismodule.save = "i","w"
+                    break
+                elif _class.get(choice) == "Fighter":
+                    thismodule.save = "s","c"
+                    break
+                elif _class.get(choice) == "Monk":
+                    thismodule.save = "s","d"
+                    break
+                elif _class.get(choice) == "Paladin":
+                    thismodule.save = "w","c"
+                    break
+                elif _class.get(choice) == "Ranger":
+                    thismodule.save = "s","d"
+                    break
+                elif _class.get(choice) == "Rogue":
+                    thismodule.save = "d","i"
+                    break
+                elif _class.get(choice) == "Sorcerer":
+                    thismodule.save = "c","c"
+                    break
+                elif _class.get(choice) == "Warlock":
+                    thismodule.save = "w","c"
+                    break
+                elif _class.get(choice) == "Wizard":
+                    thismodule.save = "i","w"
+                    break
+                elif _class.get(choice) == "Artificer":
+                    thismodule.save = "c","i"
+                    break
+                elif _class.get(choice) == "Blood Hunter":
+                    thismodule.save = "d","i"
+                    break
         except ValueError:
             print("\nMust be a number!\n")
             continue 
@@ -888,6 +606,5 @@ def calcSaveThrow():
 #==========FUNCTIONS==========#
 
 #==========RUN PROGRAM==========#
-# _MakeACharacter()
+_MakeACharacter()
 #==========RUN PROGRAM==========#
-updateClass()
