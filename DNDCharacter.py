@@ -6,16 +6,9 @@ import linecache as line
 import sys
 thismodule = sys.modules[__name__]
 
-
-#==========DICTIONARIES==========#
-_Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":"","background":""}
-Items = {}
-abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "Proficiency Bonus":""}
-savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
-#==========DICTIONARIES==========#
-
 #-----------GLOBAL VARIABLES--------#
 thismodule.save = "",""
+thismodule.saveBg = "",""
 thismodule.sMod = ""
 thismodule.dMod = ""
 thismodule.cMod = ""
@@ -23,6 +16,16 @@ thismodule.iMod = ""
 thismodule.wMod = ""
 thismodule.chMod = ""
 #-----------GLOBAL VARIABLES--------#
+
+#==========DICTIONARIES==========#
+_Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":"","background":""}
+Items = {}
+abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "Proficiency Bonus":""}
+savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
+# skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athletics(Str)":"","Deception(Cha)":"","History(Int)":"","Insight(Wis)":"",
+# "Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
+# "Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":""}
+#==========DICTIONARIES==========#
 
 #==========MAIN FUNCTION==========#
 def _MakeACharacter():
@@ -120,7 +123,7 @@ def updateRace():
             print("Invalid, must be a number\n")
             continue
 
-def updateClass():
+def updateClass():#TODO go back and specify constitution or charisma with c and co or c and ch!
     _class = {"\n-----SELECT A CLASS-----":"", 1:"Barbarian", 2:"Bard",3:"Cleric",4: "Druid",5: "Fighter",
     6: "Monk",7:"Paladin",8:"Ranger",9:"Rogue",10:"Sorcerer",11:"Warlock",12:"Wizard",
     "***Eberron: Rising from the Last War***":"",13:"Artificer","***Critical Role***":"",14:"Blood Hunter"}
@@ -203,74 +206,32 @@ def updateLevel():
 
 #allows user to input their characters alignment
 def updateAlignment():
-    # align = input("What is your alignment? ").capitalize()
-    # _Character["alignment"] = align
-    # print("Okay, your alignment is: " + align)
+    alignment = {"\n ---SELECT YOUR ALIGNMENT---":"",1:"Lawful Good",2:"Neutral Good",3:"Chaotic Good",4:"Lawful Neutral",
+    5:"True Neutral",6:"Chaotic Neutral",7:"Lawful Evil",8:"Neutral Evil",9:"Chaotic Evil",0:"Unaligned"}
+    for key in alignment:
+        print( str(key) + ":", alignment[key],"\n")
     while True:
-        print("---Select your alignment--- \n")
-        print("1: Lawful Good \n")
-        print("2: Neutral Good \n")
-        print("3: Chaotic Good \n")
-        print("4: Lawful Neutral \n")
-        print("5: True Neutral \n")
-        print("6: Chaotic Neutral \n")
-        print("7: Lawful Evil \n")
-        print("8: Neutral Evil \n")
-        print("9: Chaotic Evil \n")
-        print("0: Unaligned \n")
-        align = int(input("Choose your alignment: "))
-        if align == 1:
-            _Character["alignment"] = "Lawful good"
-            print("Okay, you're Lawful good \n")
-            break
-        elif align == 2:
-            _Character["alignment"] = "Neutral Good"
-            print("Okay, you're Neutral good \n")
-            break
-        elif align == 3:
-            _Character["alignment"] = "Chaotic Good"
-            print("Okay, you're Chaotic good \n")
-            break
-        elif align == 4:
-            _Character["alignment"] = "Lawful Neutral"
-            print("Okay, you're Lawful Neutral \n")
-            break
-        elif align == 5:
-            _Character["alignment"] = "True Neutral"
-            print("Okay, you're True Neutral \n")
-            break
-        elif align == 6:
-            _Character["alignment"] = "Chaotic Neutral"
-            print("Okay, you're Chaotic Neutral \n")
-            break
-        elif align == 7:
-            _Character["alignment"] = "Lawful Evil"
-            print("Okay, you're Lawful Evil \n")
-            break
-        elif align == 8:
-            _Character["alignment"] = "Neutral Evil"
-            print("Okay, you're Neutral Evil \n")
-            break
-        elif align == 9:
-            _Character["alignment"] = "Chaotic Evil"
-            print("Okay, you're Chaotic Evil \n")
-            break
-        elif align == 0:
-            _Character["alignment"] = "Unaligned"
-            print("Okay, you're Unaligned \n")
-            break
-        else:
-            print("Invalid choice, try again\n")
+        try:
+            align = int(input("Choose your Alignment: "))
+            if align not in range(0,10):
+                print("\nError: Out of range, try again\n")
+            else:
+                _Character["alignment"] = alignment.get(align)
+                print("\nYou are a: " + _Character.get("alignment") + "\n")
+                break
+        except ValueError:
+            print("\nInvalid, must be a number\n")
             continue
 
 #allows user to input their characters background
 def updateBackground():
-    bg = input("What is your background? ").capitalize()
-    _Character["background"] = bg
-    print("Your background is: " + bg + "\n")
+    # bg = input("What is your background? ").capitalize()
+    # _Character["background"] = bg
+    # print("Your background is: " + bg + "\n")
+    bg = {}
 
 #allows user to input their ability scores
-def updateAbilityScore():
+def updateAbilityScore(): #modifiers are here
     while True:
         try:
             st = int(input("What did you roll for strength? "))
@@ -571,7 +532,7 @@ def _Logo():
     """)
 
 #calculates what your saving throw will be based off of ur level and class
-def calcSaveThrow():
+def calcSaveThrow(): #TODO update the if statements when constitution and charisma are updated in updateClass()
     savingThrows["Saving Strength"] = sMod
     savingThrows["Saving Dexterity"] = dMod
     savingThrows["Saving Constitution"] = cMod
@@ -603,13 +564,28 @@ def calcSaveThrow():
     elif save == ("c","i"):
         savingThrows["Saving Constitution"] = cMod + abilityScore.get("Proficiency Bonus")
         savingThrows["Saving Intelligence"] = iMod + abilityScore.get("Proficiency Bonus")
+
+def calcSkills(): #calculates the skill table
+    skillz = {"Acrobatics(Dex)":dMod,"Animal Handling(Wis)":wMod,"Arcana(Int)":iMod,"Athletics(Str)":sMod,"Deception(Cha)":chMod,"History(Int)":iMod,"Insight(Wis)":wMod,
+    "Intimidation(Cha)":chMod,"Investigation(Int)":iMod,"Medicine(Wis)":wMod,"Nature(Int)":iMod,"Perception(Wis)":wMod,"Persuasion(Cha)":chMod,"Religion(Int)":iMod,
+    "Sleight of Hand(Dex)":dMod,"Stealth(Dex)":dMod,"Survival(Wis)":wMod}
+
+    if save == ("s","ch"):
+        skillz.update({"Athletics(Str)":sMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif save == ("d","ch"):
+        skillz.update({"Acrobatics(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Sleight of Hand(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Stealth(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),
+        "Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif save == ("w","ch"):
+        #TODO finish calcSkills after save has been udated to specify between constitution and charisma
 #==========FUNCTIONS==========#
 
 #==========RUN PROGRAM==========#
-_MakeACharacter()
+# _MakeACharacter()
 #==========RUN PROGRAM==========#
 
 #++++++++++TEST SPACE++++++++++#
-
+# updateAlignment()
+# print(skillz)
+calcSkills()
 #++++++++++TEST SPACE++++++++++#
 
