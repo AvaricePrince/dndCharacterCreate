@@ -1,7 +1,8 @@
 """
 Copyright 2020, Raul Mendez, All rights reserved
 """
-
+#TODO work on passive perception
+#TODO work on proficiencies and language
 import linecache as line
 import sys
 thismodule = sys.modules[__name__]
@@ -22,9 +23,6 @@ _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":
 Items = {}
 abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "Proficiency Bonus":""}
 savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
-# skillz = {"Acrobatics(Dex)":dMod,"Animal Handling(Wis)":wMod,"Arcana(Int)":iMod,"Athletics(Str)":sMod,"Deception(Cha)":chMod,"History(Int)":iMod,"Insight(Wis)":wMod,
-# "Intimidation(Cha)":chMod,"Investigation(Int)":iMod,"Medicine(Wis)":wMod,"Nature(Int)":iMod,"Perception(Wis)":wMod,"Persuasion(Cha)":chMod,"Religion(Int)":iMod,
-# "Sleight of Hand(Dex)":dMod,"Stealth(Dex)":dMod,"Survival(Wis)":wMod}
 skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athletics(Str)":"","Deception(Cha)":"","History(Int)":"","Insight(Wis)":"",
 "Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
 "Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":""}
