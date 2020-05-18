@@ -22,9 +22,12 @@ _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":
 Items = {}
 abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence":"", "Wisdom":"", "Charisma":"", "Proficiency Bonus":""}
 savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
-# skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athletics(Str)":"","Deception(Cha)":"","History(Int)":"","Insight(Wis)":"",
-# "Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
-# "Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":""}
+# skillz = {"Acrobatics(Dex)":dMod,"Animal Handling(Wis)":wMod,"Arcana(Int)":iMod,"Athletics(Str)":sMod,"Deception(Cha)":chMod,"History(Int)":iMod,"Insight(Wis)":wMod,
+# "Intimidation(Cha)":chMod,"Investigation(Int)":iMod,"Medicine(Wis)":wMod,"Nature(Int)":iMod,"Perception(Wis)":wMod,"Persuasion(Cha)":chMod,"Religion(Int)":iMod,
+# "Sleight of Hand(Dex)":dMod,"Stealth(Dex)":dMod,"Survival(Wis)":wMod}
+skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athletics(Str)":"","Deception(Cha)":"","History(Int)":"","Insight(Wis)":"",
+"Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
+"Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":""}
 #==========DICTIONARIES==========#
 
 #==========MAIN FUNCTION==========#
@@ -42,10 +45,12 @@ def _MakeACharacter():
             updateBackground()
             updateAbilityScore()
             calcSaveThrow()
+            calcSkills()
             saveCharacter()
             saveAbilityScore()
             saveSaveThrows()
-            print("Character created succesfully\n")
+            saveSkills()
+            print("\nCharacter created succesfully\n")
             addStuff()
         elif newCharacter == "N":
             lookUp = input("Would you like to look up a character? Y/N ")
@@ -55,9 +60,9 @@ def _MakeACharacter():
                 dele = input("Delete Everything? Y/N ")
                 if dele.capitalize() == "Y":
                     clearAllCharacters()
-                    print("All characters have been deleted!\n")
+                    print("\nAll characters have been deleted!\n")
                 elif dele.capitalize() == "N":
-                    print("Have a good day Adventurer!\n ")
+                    print("\nHave a good day Adventurer!\n ")
                     break
             else:
                 print("Invalid entry\n")
@@ -78,6 +83,7 @@ def lookUpCharacter():
                 print(line.getline("stuff.txt", int(num)))
                 print(line.getline("ability.txt", int(num)))
                 print(line.getline("Saving Throws.txt", int(num)))
+                print(line.getline("skills.txt",int(num)))
                 break
             else:
                 print("Character does not exit! \n")
@@ -90,17 +96,17 @@ def lookUpCharacter():
 def updatePName():
     name = input("What is your irl name? ").capitalize()
     _Character["pname"]=name
-    print("Okay, your name is: " + name + "\n")
+    print("\nOkay, your name is: " + name + "\n")
 
 def updateCName():
     fname = input("Character's First name: ").capitalize()
     lname = input("Character's Last name: ").capitalize()
     _Character["fname"] = fname
     _Character["lname"] = lname
-    print("Your name is: " + fname, lname + "\n")
+    print("\nYour name is: " + fname, lname + "\n")
 
 def updateRace():
-    race = {"\n-----SELECT A CLASS-----":"",1:"Dragonborn",2:"Dwarf",3:"Elf",4:"Gnome",5:"Half-Elf",6:"Halfling",7:"Half-Orc",8:"Human",9:"Tiefling",
+    race = {"\n-----SELECT A RACE-----":"",1:"Dragonborn",2:"Dwarf",3:"Elf",4:"Gnome",5:"Half-Elf",6:"Halfling",7:"Half-Orc",8:"Human",9:"Tiefling",
     "**Explorer's Guide to Wildemount**":"",10:"Orc of Exandria","**Elemental Evil Player's Companion**":"",11:"Aarakocra",
     12:"Genasi",13:"Goliath","**Volo's Guide to Monsters**":"",14:"Aasimar",15:"Bugbear",16:"Firblog",17:"Goblin",18:"Hobgoblin",19:"Kenku",
     20:"Kobold",21:"Lizardfolk",22:"Orc",23:"Tabaxi",24:"Triton",25:"Yuan-ti Pureblood","**Sword Coast Adventurer's Guide**":"",
@@ -123,7 +129,7 @@ def updateRace():
             print("Invalid, must be a number\n")
             continue
 
-def updateClass():#TODO go back and specify constitution or charisma with c and co or c and ch!
+def updateClass():
     _class = {"\n-----SELECT A CLASS-----":"", 1:"Barbarian", 2:"Bard",3:"Cleric",4: "Druid",5: "Fighter",
     6: "Monk",7:"Paladin",8:"Ranger",9:"Rogue",10:"Sorcerer",11:"Warlock",12:"Wizard",
     "***Eberron: Rising from the Last War***":"",13:"Artificer","***Critical Role***":"",14:"Blood Hunter"}
@@ -142,10 +148,10 @@ def updateClass():#TODO go back and specify constitution or charisma with c and 
                     thismodule.save = "s","c"
                     break
                 elif _class.get(choice) == "Bard":
-                    thismodule.save = "d","c"
+                    thismodule.save = "d","ch"
                     break
                 elif _class.get(choice) == "Cleric":
-                    thismodule.save = "w","c"
+                    thismodule.save = "w","ch"
                     break
                 elif _class.get(choice) == "Druid":
                     thismodule.save = "i","w"
@@ -157,7 +163,7 @@ def updateClass():#TODO go back and specify constitution or charisma with c and 
                     thismodule.save = "s","d"
                     break
                 elif _class.get(choice) == "Paladin":
-                    thismodule.save = "w","c"
+                    thismodule.save = "w","ch"
                     break
                 elif _class.get(choice) == "Ranger":
                     thismodule.save = "s","d"
@@ -166,10 +172,10 @@ def updateClass():#TODO go back and specify constitution or charisma with c and 
                     thismodule.save = "d","i"
                     break
                 elif _class.get(choice) == "Sorcerer":
-                    thismodule.save = "c","c"
+                    thismodule.save = "c","ch"
                     break
                 elif _class.get(choice) == "Warlock":
-                    thismodule.save = "w","c"
+                    thismodule.save = "w","ch"
                     break
                 elif _class.get(choice) == "Wizard":
                     thismodule.save = "i","w"
@@ -223,12 +229,53 @@ def updateAlignment():
             print("\nInvalid, must be a number\n")
             continue
 
-#allows user to input their characters background
+#allows user to choose their characters background
+#also where savebg is located
 def updateBackground():
-    # bg = input("What is your background? ").capitalize()
-    # _Character["background"] = bg
-    # print("Your background is: " + bg + "\n")
-    bg = {}
+    bg = {"\n-----SELECT YOUR BACKGROUND-----":"",1:"Acolyte",2:"Charlatan",3:"Criminal",4:"Entertainer",
+    5:"Folk Hero",6:"Guild Artisan",7:"Guild Merchant",8:"Outlander",9:"Noble",10:"Sage",11:"Sailor",12:"Soldier",13:"Urchin",14:"Gladiator",15:"Hermit",16:"Knight",17:"Pirate",
+    18:"Spy"}
+    for key in bg:
+        print(str(key) + ":", bg[key],"\n")
+    
+    while True:
+        try:
+            choice = int(input("Choose your background: "))
+            if choice in range(1,19):
+                _Character["background"] = bg.get(choice)
+                print("\nYou have chosen: " + _Character.get("background") + "\n")
+            else:
+                print("Error: out of range")
+                continue
+            if choice == 1 or choice == 15:
+                thismodule.savebg = "w","i"
+                break
+            elif choice == 2 or choice == 3 or choice == 4 or choice == 6 or choice == 14 or choice == 18:
+                thismodule.savebg = "ch","d"
+                break
+            elif choice == 5:
+                thismodule.savebg = "w","w"
+                break
+            elif choice == 7:
+                thismodule.savebg = "w","ch"
+                break
+            elif choice == 8 or choice == 11 or choice == 17:
+                thismodule.savebg = "s","w"
+                break
+            elif choice == 9 or choice == 16:
+                thismodule.savebg = "i","ch"
+                break
+            elif choice == 10:
+                thismodule.savebg = "i","i"
+                break
+            elif choice == 12:
+                thismodule.savebg = "s","ch"
+                break
+            elif choice == 13:
+                thismodule.savebg = "d","d"
+                break
+        except ValueError:
+            print("\nNot a valid choice\n")
 
 #allows user to input their ability scores
 def updateAbilityScore(): #modifiers are here
@@ -460,7 +507,7 @@ def saveCharacter():
     f.write( str(_Character) + "\n" )
     f.close()
 
-#reads the Character.txt file 
+# reads the Character.txt file 
 def readSavedCharacter():
     f = open("Character.txt", "r")
     print(f.read())
@@ -477,23 +524,31 @@ def saveAbilityScore():
     f.write( str(abilityScore) + "\n")
     f.close()
 
-
 def saveSaveThrows():
     f = open("Saving Throws.txt","a")
     f.write( str(savingThrows) + "\n")
     f.close()
 
+def saveSkills():
+    f = open("skills.txt","a")
+    f.write(str(skillz) + "\n")
+    f.close()
+
+def readSkills():
+    f.open("skills.txt","r")
+    print(f.read())
 
 def readSaveThrows():
     f.open("Saving Throws.txt", "r")
     print(f.read())
- 
+
 #deletes all information on every text file when invoked!!
 def clearAllCharacters():
     f = open("Character.txt", "w").close()
     f = open("stuff.txt", "w").close()
     f = open("ability.txt", "w").close()
     f = open("Saving Throws.txt", "w").close()
+    f = open("skills.txt","w").close()
 
 #calculates the proficiency bonus based on inputed level
 def proBo(level):
@@ -532,7 +587,7 @@ def _Logo():
     """)
 
 #calculates what your saving throw will be based off of ur level and class
-def calcSaveThrow(): #TODO update the if statements when constitution and charisma are updated in updateClass()
+def calcSaveThrow(): 
     savingThrows["Saving Strength"] = sMod
     savingThrows["Saving Dexterity"] = dMod
     savingThrows["Saving Constitution"] = cMod
@@ -543,10 +598,10 @@ def calcSaveThrow(): #TODO update the if statements when constitution and charis
     if save == ("s","c"):
         savingThrows["Saving Strength"] = sMod + abilityScore.get("Proficiency Bonus")
         savingThrows["Saving Constitution"] = cMod + abilityScore.get("Proficiency Bonus")
-    elif save == ("d","c"):
+    elif save == ("d","ch"):
         savingThrows["Saving Dexterity"] = dMod + abilityScore.get("Proficiency Bonus")
         savingThrows["Saving Charisma"] = chMod + abilityScore.get("Proficiency Bonus")
-    elif save == ("w","c"):
+    elif save == ("w","ch"):
         savingThrows["Saving Wisdom"] = wMod + abilityScore.get("Proficiency Bonus")
         savingThrows["Saving Charisma"] = chMod + abilityScore.get("Proficiency Bonus")
     elif save == ("i","w"):
@@ -558,34 +613,65 @@ def calcSaveThrow(): #TODO update the if statements when constitution and charis
     elif save == ("d","i"):
         savingThrows["Saving Dexterity"] = dMod + abilityScore.get("Proficiency Bonus")
         savingThrows["Saving Intelligence"] = iMod + abilityScore.get("Proficiency Bonus")
-    elif save == ("c","c"):
+    elif save == ("c","ch"):
         savingThrows["Saving Constitution"] = cMod + abilityScore.get("Proficiency Bonus")
         savingThrows["Saving Charisma"] = chMod + abilityScore.get("Proficiency Bonus")
     elif save == ("c","i"):
         savingThrows["Saving Constitution"] = cMod + abilityScore.get("Proficiency Bonus")
         savingThrows["Saving Intelligence"] = iMod + abilityScore.get("Proficiency Bonus")
 
+#calculates the skills automatically calculates proficinicies
 def calcSkills(): #calculates the skill table
-    skillz = {"Acrobatics(Dex)":dMod,"Animal Handling(Wis)":wMod,"Arcana(Int)":iMod,"Athletics(Str)":sMod,"Deception(Cha)":chMod,"History(Int)":iMod,"Insight(Wis)":wMod,
+    skillz.update({"Acrobatics(Dex)":dMod,"Animal Handling(Wis)":wMod,"Arcana(Int)":iMod,"Athletics(Str)":sMod,"Deception(Cha)":chMod,"History(Int)":iMod,"Insight(Wis)":wMod,
     "Intimidation(Cha)":chMod,"Investigation(Int)":iMod,"Medicine(Wis)":wMod,"Nature(Int)":iMod,"Perception(Wis)":wMod,"Persuasion(Cha)":chMod,"Religion(Int)":iMod,
-    "Sleight of Hand(Dex)":dMod,"Stealth(Dex)":dMod,"Survival(Wis)":wMod}
+    "Sleight of Hand(Dex)":dMod,"Stealth(Dex)":dMod,"Survival(Wis)":wMod})
 
-    if save == ("s","ch"):
-        skillz.update({"Athletics(Str)":sMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    if save == ("s","c"):
+        skillz.update({"Athletics(Str)":sMod + abilityScore.get("Proficiency Bonus")})
     elif save == ("d","ch"):
-        skillz.update({"Acrobatics(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Sleight of Hand(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Stealth(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),
-        "Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+        skillz.update({"Acrobatics(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Sleight of Hand(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Stealth(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
     elif save == ("w","ch"):
-        #TODO finish calcSkills after save has been udated to specify between constitution and charisma
+        skillz.update({"Animal Handling(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Insight(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Medicine(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Perception(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Survival(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif save == ("i","w"):
+        skillz.update({"Animal Handling(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Insight(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Medicine(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Perception(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Survival(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Arcana(Int)":iMod + abilityScore.get("Proficiency Bonus"),"History(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Investigation(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Nature(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Religion(Int)":iMod + abilityScore.get("Proficiency Bonus")})
+    elif save == ("s","d"):
+        skillz.update({"Athletics(Str)":sMod + abilityScore.get("Proficiency Bonus"),"Acrobatics(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Sleight of Hand(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Stealth(Dex)":dMod + abilityScore.get("Proficiency Bonus")})
+    elif save == ("d","i"):
+        skillz.update({"Acrobatics(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Sleight of Hand(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Stealth(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Arcana(Int)":iMod + abilityScore.get("Proficiency Bonus"),"History(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Investigation(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Nature(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Religion(Int)":iMod + abilityScore.get("Proficiency Bonus")})
+    elif save == ("c","ch"):
+        skillz.update({"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif save == ("c","i"):
+        skillz.update({"Arcana(Int)":iMod + abilityScore.get("Proficiency Bonus"),"History(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Investigation(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Nature(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Religion(Int)":iMod + abilityScore.get("Proficiency Bonus")})
+    
+    if savebg == ("w","i"):
+        skillz.update({"Animal Handling(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Insight(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Medicine(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Perception(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Survival(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Arcana(Int)":iMod + abilityScore.get("Proficiency Bonus"),"History(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Investigation(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Nature(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Religion(Int)":iMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("ch","d"):
+        skillz.update({"Acrobatics(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Sleight of Hand(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Stealth(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("w","w"):
+        skillz.update({"Animal Handling(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Insight(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Medicine(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Perception(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Survival(Wis)":wMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("w","ch"):
+        skillz.update({"Animal Handling(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Insight(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Medicine(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Perception(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Survival(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("s","w"):
+        skillz.update({"Athletics(Str)":sMod + abilityScore.get("Proficiency Bonus"),"Animal Handling(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Insight(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Medicine(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Perception(Wis)":wMod + abilityScore.get("Proficiency Bonus"),"Survival(Wis)":wMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("i","ch"):
+        skillz.update({"Arcana(Int)":iMod + abilityScore.get("Proficiency Bonus"),"History(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Investigation(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Nature(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Religion(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("i","i"):
+        skillz.update({"Arcana(Int)":iMod + abilityScore.get("Proficiency Bonus"),"History(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Investigation(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Nature(Int)":iMod + abilityScore.get("Proficiency Bonus"),"Religion(Int)":iMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("s","ch"):
+        skillz.update({"Athletics(Str)":sMod + abilityScore.get("Proficiency Bonus"),"Deception(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Intimidation(Cha)":chMod + abilityScore.get("Proficiency Bonus"),"Persuasion(Cha)":chMod + abilityScore.get("Proficiency Bonus")})
+    elif savebg == ("d","d"):
+        skillz.update({"Acrobatics(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Sleight of Hand(Dex)":dMod + abilityScore.get("Proficiency Bonus"),"Stealth(Dex)":dMod + abilityScore.get("Proficiency Bonus")})
+
 #==========FUNCTIONS==========#
 
 #==========RUN PROGRAM==========#
-# _MakeACharacter()
+_MakeACharacter()
 #==========RUN PROGRAM==========#
 
 #++++++++++TEST SPACE++++++++++#
 # updateAlignment()
 # print(skillz)
-calcSkills()
+
+# updateBackground()
 #++++++++++TEST SPACE++++++++++#
 
