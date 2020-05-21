@@ -2,11 +2,12 @@
 Copyright 2020, Raul Mendez, All rights reserved
 """
 
-#TODO work on proficiencies and language
+#TODO work on language class
 import linecache as line
 import sys
 from language import *
 from save import *
+from character import *
 thismodule = sys.modules[__name__]
 
 #-----------GLOBAL VARIABLES--------#
@@ -20,6 +21,11 @@ thismodule.wMod = ""
 thismodule.chMod = ""
 #-----------GLOBAL VARIABLES--------#
 
+#++++++++++CLASS CALLS++++++++++#
+c = Character()
+s = Save()
+#++++++++++CLASS CALLS++++++++++#
+
 #==========DICTIONARIES==========#
 _Character = {"pname":"", "fname":"", "lname":"","level":"", "race":"", "class":"", "alignment":"","background":""}
 Items = {}
@@ -28,13 +34,12 @@ savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitutio
 skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athletics(Str)":"","Deception(Cha)":"","History(Int)":"","Insight(Wis)":"",
 "Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
 "Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":"","Passive Wisdom":""}
-# language = {}
+language = {}
 #==========DICTIONARIES==========#
 
 #==========MAIN FUNCTION==========#
 def _MakeACharacter():
     _Logo()
-    s = Save()
     while True:
         newCharacter = input("Hello Adventurer, would you like to create a new character? Y/N ").capitalize()
         if newCharacter == "Y":
@@ -48,24 +53,28 @@ def _MakeACharacter():
             updateAbilityScore()
             calcSaveThrow()
             calcSkills()
-            saveCharacter()
-            saveAbilityScore()
-            saveSaveThrows()
+            s.saveThing('Character',_Character)
+            s.saveThing('ability',abilityScore)
+            s.saveThing('Saving Throws',savingThrows)
             s.saveThing('skills',skillz)
             print("\nCharacter created succesfully\n")
             addStuff()
         elif newCharacter == "N":
-            lookUp = input("Would you like to look up a character? Y/N ")
+            lookUp = input("\nWould you like to look up a character? Y/N ")
             if lookUp.capitalize() == "Y":
-                lookUpCharacter()
+                c.lookUpCharacter()
             elif lookUp.capitalize() == "N":
-                dele = input("Delete Everything? Y/N ")
+                dele = input("\nDelete Everything? Y/N ")
                 if dele.capitalize() == "Y":
                     clearAllCharacters()
                     print("\nAll characters have been deleted!\n")
+                    break
                 elif dele.capitalize() == "N":
                     print("\nHave a good day Adventurer!\n ")
                     break
+                else:
+                    print("\nError\n")
+                    continue
             else:
                 print("Invalid entry\n")
                 continue
@@ -75,37 +84,14 @@ def _MakeACharacter():
 #==========MAIN FUNCTION==========#
 
 #==========FUNCTIONS==========#
-def lookUpCharacter():
-    while True:
-        num = input("Which character do you want to see? ")
-        if str.isdigit(num):
-            #checks to see if the line the user typed in is populated, .strip() finds the empty space
-            if line.getline("Character.txt", int(num)).strip():
-                print(line.getline("Character.txt", int(num)))
-                print(line.getline("stuff.txt", int(num)))
-                print(line.getline("ability.txt", int(num)))
-                print(line.getline("Saving Throws.txt", int(num)))
-                print(line.getline("skills.txt",int(num)))
-                break
-            else:
-                print("Character does not exit! \n")
-                break
-
-        else:
-            print("Please enter a row number\n")
-            continue
-
 def updatePName():
-    name = input("What is your irl name? ").capitalize()
-    _Character["pname"]=name
-    print("\nOkay, your name is: " + name + "\n")
+    _Character['pname'] = c.playerName()
+    print('Your name is ' + _Character.get('pname'))
 
 def updateCName():
-    fname = input("Character's First name: ").capitalize()
-    lname = input("Character's Last name: ").capitalize()
-    _Character["fname"] = fname
-    _Character["lname"] = lname
-    print("\nYour name is: " + fname, lname + "\n")
+    _Character['fname'] = c.fName()
+    _Character['lname'] = c.lName()
+    print('\nYour name is: ' + _Character.get('fname').capitalize() + " " + _Character.get('lname').capitalize() + "\n")
 
 def updateRace():
     race = {"\n-----SELECT A RACE-----":"",1:"Dragonborn",2:"Dwarf",3:"Elf",4:"Gnome",5:"Half-Elf",6:"Halfling",7:"Half-Orc",8:"Human",9:"Tiefling",
@@ -117,7 +103,6 @@ def updateRace():
     39:"Verdan","**Locathah Rising**":"",40:"Locathah","**One Grung Above**":"",41:"Grung\n"}
     for key in race:
         print("\n" + str(key)+":",race.get(key))
-
     while True:
         try:
             choice = int(input("Choose your race: "))
@@ -128,7 +113,7 @@ def updateRace():
                 print("\nYou are a: " + _Character.get("race") + "\n")
                 break
         except ValueError:
-            print("Invalid, must be a number\n")
+            print("\nInvalid, must be a number\n")
             continue
 
 def updateClass():
@@ -191,25 +176,23 @@ def updateClass():
         except ValueError:
             print("\nMust be a number!\n")
             continue 
-        except IndexError:
-            print("there was an error")
 
 def updateLevel():
     while True:
         try:
             level = int(input("What level are you? Level: "))
             if level > 20:
-                print("Your level is too high!\n")
+                print("\nYour level is too high!\n")
                 continue
             elif level < 1:
-                print("You cant be a negative level!\n")
+                print("\nYou cant be a negative level!\n")
                 continue
             proBo(level)
         except ValueError:
-            print("Invalid number\n")
+            print("\nInvalid number\n")
             continue
         _Character["level"] = level
-        print("You're level " + str(level) + "\n")
+        print("\nYou're level " + str(level) + "\n")
         break
 
 #allows user to input their characters alignment
@@ -485,56 +468,32 @@ def updateAbilityScore(): #modifiers are here
 
 #adds items to the Items dictionary
 def addStuff():
-    stuff = input("Do you have any items? Y/N ")
-    if stuff.capitalize() == "Y":
-        item = input("What item do you have? ")
-        amount = input("How much of the item do you have? ")
-        if amount.isdigit() is False:
-            print("Amount has to be a number")
-            addStuff()
-        Items[item] = amount
-        addStuff()
-    elif stuff.capitalize() == "N":
-        print("No items added \n")
-        saveStuff()
-        for key, val in Items.items():
-            print("You have " + val + " " + key +"\n")
-    else:
-        print("invalid")
-        addStuff()
+    e = Save()
+    while True:
+        stuff = input("Do you have any items? Y/N ")
+        if stuff.capitalize() == "Y":
+            item = input("What item do you have? ")
+            amount = input("How much of the item do you have? ")
+            if amount.isdigit() is False:
+                print("Amount has to be a number")
+                continue
+            Items[item] = amount
+            continue
+        elif stuff.capitalize() == "N":
+            print("No items added \n")
+            e.saveThing('stuff',Items)
+            for key, val in Items.items():
+                print("You have " + val + " " + key +"\n")
+            break
 
-#saves the character the user created when invoked      
-def saveCharacter():
-    f = open("Character.txt", "a")
-    f.write( str(_Character) + "\n" )
-    f.close()
+        else:
+            print("invalid")
+            continue
 
 # reads the Character.txt file 
 def readSavedCharacter():
     f = open("Character.txt", "r")
     print(f.read())
-
-#saves items to the Items dictionary
-def saveStuff():
-      f = open("stuff.txt", "a")
-      f.write( str(Items) + "\n")
-      f.close()
-
-#self explanitory
-def saveAbilityScore():
-    f = open("ability.txt","a")
-    f.write( str(abilityScore) + "\n")
-    f.close()
-
-def saveSaveThrows():
-    f = open("Saving Throws.txt","a")
-    f.write( str(savingThrows) + "\n")
-    f.close()
-
-# def saveSkills():
-#     f = open("skills.txt","a")
-#     f.write(str(skillz) + "\n")
-#     f.close()
 
 def readSkills():
     f.open("skills.txt","r")
@@ -565,7 +524,7 @@ def proBo(level):
     elif 17 < level <=21:
         abilityScore["Proficiency Bonus"] = 6
 
-
+#Displatys the opening logo
 def _Logo():
     print("""
     ██████╗ ███╗   ██╗██████╗                                                
@@ -671,10 +630,6 @@ _MakeACharacter()
 #==========RUN PROGRAM==========#
 
 #++++++++++TEST SPACE++++++++++#
-# updateAlignment()
-# print(skillz)
 
-# updateBackground()
-# t = Language('dragon','common')
 #++++++++++TEST SPACE++++++++++#
 
