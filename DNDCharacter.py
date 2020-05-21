@@ -1,10 +1,12 @@
 """
 Copyright 2020, Raul Mendez, All rights reserved
 """
-#TODO work on passive perception
+
 #TODO work on proficiencies and language
 import linecache as line
 import sys
+from language import *
+from save import *
 thismodule = sys.modules[__name__]
 
 #-----------GLOBAL VARIABLES--------#
@@ -25,12 +27,14 @@ abilityScore = {"Strength":"", "Dexterity":"", "Constitution":"", "Intelligence"
 savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitution":"", "Saving Intelligence":"", "Saving Wisdom":"", "Saving Charisma":""}
 skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athletics(Str)":"","Deception(Cha)":"","History(Int)":"","Insight(Wis)":"",
 "Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
-"Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":""}
+"Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":"","Passive Wisdom":""}
+# language = {}
 #==========DICTIONARIES==========#
 
 #==========MAIN FUNCTION==========#
 def _MakeACharacter():
     _Logo()
+    s = Save()
     while True:
         newCharacter = input("Hello Adventurer, would you like to create a new character? Y/N ").capitalize()
         if newCharacter == "Y":
@@ -47,7 +51,7 @@ def _MakeACharacter():
             saveCharacter()
             saveAbilityScore()
             saveSaveThrows()
-            saveSkills()
+            s.saveThing('skills',skillz)
             print("\nCharacter created succesfully\n")
             addStuff()
         elif newCharacter == "N":
@@ -527,10 +531,10 @@ def saveSaveThrows():
     f.write( str(savingThrows) + "\n")
     f.close()
 
-def saveSkills():
-    f = open("skills.txt","a")
-    f.write(str(skillz) + "\n")
-    f.close()
+# def saveSkills():
+#     f = open("skills.txt","a")
+#     f.write(str(skillz) + "\n")
+#     f.close()
 
 def readSkills():
     f.open("skills.txt","r")
@@ -622,7 +626,7 @@ def calcSaveThrow():
 def calcSkills(): #calculates the skill table
     skillz.update({"Acrobatics(Dex)":dMod,"Animal Handling(Wis)":wMod,"Arcana(Int)":iMod,"Athletics(Str)":sMod,"Deception(Cha)":chMod,"History(Int)":iMod,"Insight(Wis)":wMod,
     "Intimidation(Cha)":chMod,"Investigation(Int)":iMod,"Medicine(Wis)":wMod,"Nature(Int)":iMod,"Perception(Wis)":wMod,"Persuasion(Cha)":chMod,"Religion(Int)":iMod,
-    "Sleight of Hand(Dex)":dMod,"Stealth(Dex)":dMod,"Survival(Wis)":wMod})
+    "Sleight of Hand(Dex)":dMod,"Stealth(Dex)":dMod,"Survival(Wis)":wMod,"Passive Wisdom":wMod + 10})
 
     if save == ("s","c"):
         skillz.update({"Athletics(Str)":sMod + abilityScore.get("Proficiency Bonus")})
@@ -671,5 +675,6 @@ _MakeACharacter()
 # print(skillz)
 
 # updateBackground()
+# t = Language('dragon','common')
 #++++++++++TEST SPACE++++++++++#
 
