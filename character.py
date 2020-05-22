@@ -11,6 +11,7 @@ class Character:
                     print(line.getline("ability.txt", int(num)))
                     print(line.getline("Saving Throws.txt", int(num)))
                     print(line.getline("skills.txt",int(num)))
+                    print(line.getline("language.txt",int(num)))
                     break
                 else:
                     stop = input("\nCharacter does not exist! Continue? Y/N ")

@@ -2,7 +2,7 @@
 Copyright 2020, Raul Mendez, All rights reserved
 """
 
-#TODO work on language class
+#TODO do somthing about the races that get any 1 lanugage
 import linecache as line
 import sys
 from language import *
@@ -24,6 +24,7 @@ thismodule.chMod = ""
 #++++++++++CLASS CALLS++++++++++#
 c = Character()
 s = Save()
+l = Language()
 #++++++++++CLASS CALLS++++++++++#
 
 #==========DICTIONARIES==========#
@@ -34,7 +35,7 @@ savingThrows = {"Saving Strength":"", "Saving Dexterity":"", "Saving Constitutio
 skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athletics(Str)":"","Deception(Cha)":"","History(Int)":"","Insight(Wis)":"",
 "Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
 "Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":"","Passive Wisdom":""}
-language = {}
+language = []
 #==========DICTIONARIES==========#
 
 #==========MAIN FUNCTION==========#
@@ -53,10 +54,11 @@ def _MakeACharacter():
             updateAbilityScore()
             calcSaveThrow()
             calcSkills()
-            s.saveThing('Character',_Character)
-            s.saveThing('ability',abilityScore)
-            s.saveThing('Saving Throws',savingThrows)
-            s.saveThing('skills',skillz)
+            s.saveDict('Character',_Character)
+            s.saveDict('ability',abilityScore)
+            s.saveDict('Saving Throws',savingThrows)
+            s.saveDict('skills',skillz)
+            s.saveList('language',language)
             print("\nCharacter created succesfully\n")
             addStuff()
         elif newCharacter == "N":
@@ -64,7 +66,7 @@ def _MakeACharacter():
             if lookUp.capitalize() == "Y":
                 c.lookUpCharacter()
             elif lookUp.capitalize() == "N":
-                dele = input("\nDelete Everything? Y/N ")
+                dele = input("\nDelete EveryDict? Y/N ")
                 if dele.capitalize() == "Y":
                     clearAllCharacters()
                     print("\nAll characters have been deleted!\n")
@@ -111,6 +113,7 @@ def updateRace():
             else:
                 _Character["race"] = race.get(choice)
                 print("\nYou are a: " + _Character.get("race") + "\n")
+                language.append(l.talk(choice))
                 break
         except ValueError:
             print("\nInvalid, must be a number\n")
@@ -481,7 +484,7 @@ def addStuff():
             continue
         elif stuff.capitalize() == "N":
             print("No items added \n")
-            e.saveThing('stuff',Items)
+            e.saveDict('stuff',Items)
             for key, val in Items.items():
                 print("You have " + val + " " + key +"\n")
             break
@@ -510,6 +513,7 @@ def clearAllCharacters():
     f = open("ability.txt", "w").close()
     f = open("Saving Throws.txt", "w").close()
     f = open("skills.txt","w").close()
+    f = open("lanuage.txt","w").close()
 
 #calculates the proficiency bonus based on inputed level
 def proBo(level):
@@ -630,6 +634,6 @@ _MakeACharacter()
 #==========RUN PROGRAM==========#
 
 #++++++++++TEST SPACE++++++++++#
-
+# updateRace()
 #++++++++++TEST SPACE++++++++++#
 
