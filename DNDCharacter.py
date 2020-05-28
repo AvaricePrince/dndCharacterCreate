@@ -8,6 +8,7 @@ import sys
 from language import *
 from save import *
 from character import *
+from armor import *
 thismodule = sys.modules[__name__]
 
 #-----------GLOBAL VARIABLES--------#
@@ -19,12 +20,14 @@ thismodule.cMod = ""
 thismodule.iMod = ""
 thismodule.wMod = ""
 thismodule.chMod = ""
+thismodule.armor = ""
 #-----------GLOBAL VARIABLES--------#
 
 #++++++++++CLASS CALLS++++++++++#
 c = Character()
 s = Save()
 l = Language()
+a = Armor()
 #++++++++++CLASS CALLS++++++++++#
 
 #==========DICTIONARIES==========#
@@ -36,6 +39,7 @@ skillz = {"Acrobatics(Dex)":"","Animal Handling(Wis)":"","Arcana(Int)":"","Athle
 "Intimidation(Cha)":"","Investigation(Int)":"","Medicine(Wis)":"","Nature(Int)":"","Perception(Wis)":"","Persuasion(Cha)":"","Religion(Int)":"",
 "Sleight of Hand(Dex)":"","Stealth(Dex)":"","Survival(Wis)":"","Passive Wisdom":""}
 language = []
+armor = {"Armor Class":"","Initiatve":"","Speed":""}
 #==========DICTIONARIES==========#
 
 #==========MAIN FUNCTION==========#
@@ -136,45 +140,59 @@ def updateClass():
 
                 if _class.get(choice) == "Barbarian":
                     thismodule.save = "s","c"
+                    thismodule.armor = "l","m","s"
                     break
                 elif _class.get(choice) == "Bard":
                     thismodule.save = "d","ch"
+                    thismodule.armor = "l"
                     break
                 elif _class.get(choice) == "Cleric":
                     thismodule.save = "w","ch"
+                    thismodule.armor = "l","m","s"
                     break
                 elif _class.get(choice) == "Druid":
                     thismodule.save = "i","w"
+                    thismodule.armor = "l","m","s"
                     break
                 elif _class.get(choice) == "Fighter":
                     thismodule.save = "s","c"
+                    thismodule.armor = "a","s"
                     break
                 elif _class.get(choice) == "Monk":
                     thismodule.save = "s","d"
+                    thismodule.armor = "n"
                     break
                 elif _class.get(choice) == "Paladin":
                     thismodule.save = "w","ch"
+                    thismodule.armor = "a","s"
                     break
                 elif _class.get(choice) == "Ranger":
                     thismodule.save = "s","d"
+                    thismodule.armor = "l","m","s"
                     break
                 elif _class.get(choice) == "Rogue":
                     thismodule.save = "d","i"
+                    thismodule.armor = "l"
                     break
                 elif _class.get(choice) == "Sorcerer":
                     thismodule.save = "c","ch"
+                    thismodule.armor = "n"
                     break
                 elif _class.get(choice) == "Warlock":
                     thismodule.save = "w","ch"
+                    thismodule.armor = "l"
                     break
                 elif _class.get(choice) == "Wizard":
                     thismodule.save = "i","w"
+                    thismodule.armor = "n"
                     break
                 elif _class.get(choice) == "Artificer":
                     thismodule.save = "c","i"
+                    thismodule.armor = "l","m","s"
                     break
                 elif _class.get(choice) == "Blood Hunter":
                     thismodule.save = "d","i"
+                    thismodule.armor = "l","m","s"
                     break
         except ValueError:
             print("\nMust be a number!\n")
@@ -630,10 +648,11 @@ def calcSkills(): #calculates the skill table
 #==========FUNCTIONS==========#
 
 #==========RUN PROGRAM==========#
-_MakeACharacter()
+# _MakeACharacter()
 #==========RUN PROGRAM==========#
 
 #++++++++++TEST SPACE++++++++++#
 # updateRace()
+
 #++++++++++TEST SPACE++++++++++#
 

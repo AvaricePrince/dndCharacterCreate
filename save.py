@@ -7,3 +7,4 @@ class Save:
         f = open(name + ".txt","a")
         f.write( str(list) + "\n")
         f.close()
+

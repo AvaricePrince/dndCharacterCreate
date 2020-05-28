@@ -31,11 +31,11 @@ class Character:
         return name
     
     def fName(self):
-        fname = input("\nWhat is your character's first name? ")
+        fname = input("\nWhat is your character's first name? ").capitalize()
         return fname
     
     def lName(self):
-        lname = input("\nWhat is you character's last name? ")
+        lname = input("\nWhat is you character's last name? ").capitalize()
         return lname
 
 
